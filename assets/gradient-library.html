@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Gradient Library — Rebecca Gore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F4F4F2;
+  --surface:  #FFFFFF;
+  --surface2: #EFEFED;
+  --border:   rgba(0,0,0,0.08);
+  --text:     #1A1A1A;
+  --text2:    #5A5A5A;
+  --text3:    #8A8A8A;
+  --font-ui:  'IBM Plex Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+  --font-disp:'Playfair Display', serif;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+[data-mode="dark"] {
+  --bg:       #0C0C0C;
+  --surface:  #161616;
+  --surface2: #222222;
+  --border:   rgba(255,255,255,0.1);
+  --text:     #F0F0F0;
+  --text2:    #A0A0A0;
+  --text3:    #606060;
+}
+[data-mode="hc"] {
+  --bg:       #000000;
+  --surface:  #0A0A0A;
+  --surface2: #1A1A1A;
+  --border:   rgba(255,255,255,0.4);
+  --text:     #FFFFFF;
+  --text2:    #EEEEEE;
+  --text3:    #AAAAAA;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── Top bar ── */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 14px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.topbar-logo { font-family: var(--font-disp); font-size: 18px; font-weight: 700; color: var(--text); }
+.topbar-badge {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+  background: var(--surface2); color: var(--text3); border: 1px solid var(--border);
+}
+.topbar-controls { display: flex; align-items: center; gap: 8px; }
+.mode-label { font-size: 12px; font-weight: 600; color: var(--text3); margin-right: 4px; }
+
+/* Mode toggle */
+.mode-group {
+  display: flex; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 3px; gap: 2px;
+}
+.mode-btn {
+  padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer;
+  font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+  background: transparent; color: var(--text2);
+  transition: all 150ms ease;
+}
+.mode-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+[data-mode="dark"] .mode-btn.active { background: var(--bg); }
+
+/* Size picker */
+.size-group { display: flex; align-items: center; gap: 6px; }
+.size-label { font-size: 12px; color: var(--text3); font-weight: 600; }
+.size-btn {
+  width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+  cursor: pointer; background: var(--surface2); color: var(--text2);
+  font-size: 11px; font-weight: 700; font-family: var(--font-ui);
+  transition: all 150ms ease; display: flex; align-items: center; justify-content: center;
+}
+.size-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+/* Copy toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--text); color: var(--bg);
+  padding: 10px 20px; border-radius: var(--radius-md);
+  font-size: 13px; font-weight: 600;
+  opacity: 0; transform: translateY(8px);
+  transition: all 200ms ease; pointer-events: none; z-index: 999;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ── Main layout ── */
+main { padding: 48px 32px; max-width: 1400px; margin: 0 auto; }
+
+/* Case study section */
+.cs-section { margin-bottom: 72px; }
+.cs-header {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+.cs-number { font-family: var(--font-mono); font-size: 12px; color: var(--text3); font-weight: 600; }
+.cs-name { font-family: var(--font-disp); font-size: 28px; font-weight: 700; color: var(--text); }
+.cs-accent-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  flex-shrink: 0; margin-bottom: 2px;
+}
+
+/* Gradient grid */
+.gradient-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) { .gradient-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .gradient-grid { grid-template-columns: 1fr; } }
+
+/* Gradient card */
+.grad-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.grad-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+[data-mode="dark"] .grad-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+
+/* Preview pane */
+.grad-preview {
+  width: 100%; position: relative; overflow: hidden;
+  transition: height 0.2s ease;
+}
+.grad-preview.size-sm  { height: 140px; }
+.grad-preview.size-md  { height: 200px; }
+.grad-preview.size-lg  { height: 280px; }
+
+/* The actual gradient layer */
+.grad-swatch { position: absolute; inset: 0; }
+
+/* Noise texture overlay */
+.grad-preview::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: 0.5;
+}
+
+/* Card metadata */
+.grad-info { padding: 16px 18px; }
+.grad-name { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+.grad-desc { font-size: 12px; color: var(--text3); margin-bottom: 12px; line-height: 1.5; }
+.grad-codes { display: flex; flex-direction: column; gap: 6px; }
+.grad-code-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 7px 10px; background: var(--surface2); border-radius: var(--radius-sm);
+  border: 1px solid var(--border); cursor: pointer;
+  transition: all 150ms ease;
+}
+.grad-code-row:hover { border-color: var(--text3); background: var(--bg); }
+.grad-code-theme-tag {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+.tag-light { background: rgba(0,0,0,0.06); color: #555; }
+.tag-dark  { background: rgba(255,255,255,0.12); color: #aaa; }
+.tag-hc    { background: #FFD700; color: #000; }
+.grad-code-val {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;
+}
+.copy-icon { flex-shrink: 0; opacity: 0.4; transition: opacity 150ms; font-size: 12px; }
+.grad-code-row:hover .copy-icon { opacity: 1; }
+
+/* ── Gradient definitions ── */
+
+/* RDS — Orange Fire */
+/* Light: warm orange→coral→amber parchment */
+/* Dark: smoked ember, deep orange glow */
+/* HC: solid black with hard orange bar */
+
+.g-rds-1-light { background: linear-gradient(135deg, #FFF4EE 0%, #FFE0CC 40%, #FFD4B3 70%, #FFF4EE 100%); }
+.g-rds-1-dark  { background: linear-gradient(135deg, #1A0A00 0%, #2D1200 35%, #3D1A00 65%, #1A0A00 100%); }
+.g-rds-1-hc    { background: #000; border: 3px solid #FF6B2B; }
+
+.g-rds-2-light { background: radial-gradient(ellipse 80% 60% at 20% 80%, #FFD4A3 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, #FFEBD9 0%, transparent 60%), #FFF7F2; }
+.g-rds-2-dark  { background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,107,43,0.25) 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, rgba(255,140,92,0.15) 0%, transparent 60%), #100800; }
+.g-rds-2-hc    { background: repeating-linear-gradient(135deg, #000 0px, #000 12px, #1A0800 12px, #1A0800 14px); outline: 3px solid #FF6B2B; }
+
+.g-rds-3-light { background: linear-gradient(160deg, #FFFFFF 0%, #FFE8D6 30%, #FFC9A0 55%, #FFB075 80%, #FFA060 100%); }
+.g-rds-3-dark  { background: linear-gradient(160deg, #0F0700 0%, #1F0E00 30%, #2E1500 55%, rgba(255,107,43,0.2) 80%, rgba(255,107,43,0.05) 100%); }
+.g-rds-3-hc    { background: linear-gradient(90deg, #000 60%, #1A0800 100%); outline: 3px solid #FF6B2B; }
+
+/* DVS — Ultraviolet / Deep Purple */
+.g-dvs-1-light { background: linear-gradient(135deg, #F3EFFF 0%, #E0D4FF 40%, #CDB8FF 70%, #F3EFFF 100%); }
+.g-dvs-1-dark  { background: linear-gradient(135deg, #08040F 0%, #140A26 35%, #1E1040 65%, #08040F 100%); }
+.g-dvs-1-hc    { background: #000; border: 3px solid #6B46FF; }
+
+.g-dvs-2-light { background: radial-gradient(ellipse 90% 70% at 15% 85%, #C4AAFF 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, #E8DCFF 0%, transparent 55%), #F8F5FF; }
+.g-dvs-2-dark  { background: radial-gradient(ellipse 90% 70% at 15% 85%, rgba(107,70,255,0.3) 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, rgba(140,107,255,0.2) 0%, transparent 55%), #080410; }
+.g-dvs-2-hc    { background: repeating-linear-gradient(135deg, #000 0px, #000 12px, #080418 12px, #080418 14px); outline: 3px solid #6B46FF; }
+
+.g-dvs-3-light { background: linear-gradient(160deg, #FFFFFF 0%, #EDE5FF 30%, #D4BDFF 55%, #BB98FF 80%, #A87AFF 100%); }
+.g-dvs-3-dark  { background: linear-gradient(160deg, #050308 0%, #0E0820 30%, #180F36 55%, rgba(107,70,255,0.25) 80%, rgba(107,70,255,0.06) 100%); }
+.g-dvs-3-hc    { background: linear-gradient(90deg, #000 60%, #08041A 100%); outline: 3px solid #6B46FF; }
+
+/* Design Forum — Electric Cyan */
+.g-forum-1-light { background: linear-gradient(135deg, #EDFBFF 0%, #C8F3FF 40%, #A0EBFF 70%, #EDFBFF 100%); }
+.g-forum-1-dark  { background: linear-gradient(135deg, #000E12 0%, #001A22 35%, #002530 65%, #000E12 100%); }
+.g-forum-1-hc    { background: #000; border: 3px solid #2BBFFF; }
+
+.g-forum-2-light { background: radial-gradient(ellipse 85% 65% at 10% 90%, #80DFFF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, #B8F2FF 0%, transparent 55%), #F0FBFF; }
+.g-forum-2-dark  { background: radial-gradient(ellipse 85% 65% at 10% 90%, rgba(43,191,255,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, rgba(92,204,255,0.18) 0%, transparent 55%), #00090F; }
+.g-forum-2-hc    { background: repeating-linear-gradient(135deg, #000 0px, #000 12px, #000D14 12px, #000D14 14px); outline: 3px solid #2BBFFF; }
+
+.g-forum-3-light { background: linear-gradient(160deg, #FFFFFF 0%, #D6F6FF 30%, #ADECFF 55%, #7ADDFF 80%, #4ACFFF 100%); }
+.g-forum-3-dark  { background: linear-gradient(160deg, #000609 0%, #000F18 30%, #001626 55%, rgba(43,191,255,0.22) 80%, rgba(43,191,255,0.05) 100%); }
+.g-forum-3-hc    { background: linear-gradient(90deg, #000 60%, #000C18 100%); outline: 3px solid #2BBFFF; }
+
+/* Unified Platform — Hot Magenta */
+.g-unified-1-light { background: linear-gradient(135deg, #FFF0F8 0%, #FFD4EE 40%, #FFB8E2 70%, #FFF0F8 100%); }
+.g-unified-1-dark  { background: linear-gradient(135deg, #120007 0%, #22000E 35%, #340018 65%, #120007 100%); }
+.g-unified-1-hc    { background: #000; border: 3px solid #FF2B9E; }
+
+.g-unified-2-light { background: radial-gradient(ellipse 85% 65% at 15% 85%, #FF9CD6 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFCDE9 0%, transparent 55%), #FFF5FB; }
+.g-unified-2-dark  { background: radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,43,158,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,92,180,0.18) 0%, transparent 55%), #0E0008; }
+.g-unified-2-hc    { background: repeating-linear-gradient(135deg, #000 0px, #000 12px, #14000A 12px, #14000A 14px); outline: 3px solid #FF2B9E; }
+
+.g-unified-3-light { background: linear-gradient(160deg, #FFFFFF 0%, #FFE3F4 30%, #FFC5E8 55%, #FFA0D8 80%, #FF7DC8 100%); }
+.g-unified-3-dark  { background: linear-gradient(160deg, #0A0005 0%, #180010 30%, #260018 55%, rgba(255,43,158,0.22) 80%, rgba(255,43,158,0.05) 100%); }
+.g-unified-3-hc    { background: linear-gradient(90deg, #000 60%, #140008 100%); outline: 3px solid #FF2B9E; }
+
+/* AI Experience — Amber Gold */
+.g-ai-1-light { background: linear-gradient(135deg, #FFFBEF 0%, #FFF0C0 40%, #FFE48A 70%, #FFFBEF 100%); }
+.g-ai-1-dark  { background: linear-gradient(135deg, #0F0B00 0%, #201600 35%, #2E2000 65%, #0F0B00 100%); }
+.g-ai-1-hc    { background: #000; border: 3px solid #FFB82B; }
+
+.g-ai-2-light { background: radial-gradient(ellipse 85% 65% at 15% 85%, #FFD96B 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFE9A0 0%, transparent 55%), #FFFCF0; }
+.g-ai-2-dark  { background: radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,184,43,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,200,92,0.18) 0%, transparent 55%), #0A0700; }
+.g-ai-2-hc    { background: repeating-linear-gradient(135deg, #000 0px, #000 12px, #100C00 12px, #100C00 14px); outline: 3px solid #FFB82B; }
+
+.g-ai-3-light { background: linear-gradient(160deg, #FFFFFF 0%, #FFF4D0 30%, #FFEAAA 55%, #FFDA7A 80%, #FFC845 100%); }
+.g-ai-3-dark  { background: linear-gradient(160deg, #090600 0%, #150F00 30%, #211600 55%, rgba(255,184,43,0.22) 80%, rgba(255,184,43,0.05) 100%); }
+.g-ai-3-hc    { background: linear-gradient(90deg, #000 60%, #0E0A00 100%); outline: 3px solid #FFB82B; }
+
+/* Enablement — Deep Violet */
+.g-enable-1-light { background: linear-gradient(135deg, #F5F0FF 0%, #E2D4FF 40%, #CDBCFF 70%, #F5F0FF 100%); }
+.g-enable-1-dark  { background: linear-gradient(135deg, #060011 0%, #0E0022 35%, #160033 65%, #060011 100%); }
+.g-enable-1-hc    { background: #000; border: 3px solid #7C3AED; }
+
+.g-enable-2-light { background: radial-gradient(ellipse 85% 65% at 15% 85%, #B090FF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #D4C0FF 0%, transparent 55%), #F8F4FF; }
+.g-enable-2-dark  { background: radial-gradient(ellipse 85% 65% at 15% 85%, rgba(124,58,237,0.3) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(167,139,250,0.2) 0%, transparent 55%), #040010; }
+.g-enable-2-hc    { background: repeating-linear-gradient(135deg, #000 0px, #000 12px, #080018 12px, #080018 14px); outline: 3px solid #7C3AED; }
+
+.g-enable-3-light { background: linear-gradient(160deg, #FFFFFF 0%, #EAE0FF 30%, #D4C0FF 55%, #B896FF 80%, #9E70FF 100%); }
+.g-enable-3-dark  { background: linear-gradient(160deg, #030008 0%, #090016 30%, #0E0024 55%, rgba(124,58,237,0.25) 80%, rgba(124,58,237,0.06) 100%); }
+.g-enable-3-hc    { background: linear-gradient(90deg, #000 60%, #060014 100%); outline: 3px solid #7C3AED; }
+</style>
+</head>
+<body data-mode="light">
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-logo">Rebecca Gore</span>
+    <span class="topbar-badge">Gradient Library</span>
+  </div>
+  <div class="topbar-controls">
+    <span class="mode-label">Theme</span>
+    <div class="mode-group">
+      <button class="mode-btn active" data-m="light">Light</button>
+      <button class="mode-btn" data-m="dark">Dark</button>
+      <button class="mode-btn" data-m="hc">HC</button>
+    </div>
+    <div class="size-group" style="margin-left:12px">
+      <span class="size-label">Size</span>
+      <button class="size-btn" data-s="sm">S</button>
+      <button class="size-btn active" data-s="md">M</button>
+      <button class="size-btn" data-s="lg">L</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ── RDS ── -->
+<section class="cs-section" id="rds">
+  <div class="cs-header">
+    <span class="cs-number">01</span>
+    <div class="cs-accent-dot" style="background:#FF6B2B;"></div>
+    <h2 class="cs-name">R7 Design System &amp; MUI Migration</h2>
+  </div>
+  <div class="gradient-grid">
+
+    <div class="grad-card">
+      <div class="grad-preview size-md">
+        <div class="grad-swatch" id="rds-1"></div>
+      </div>
+      <div class="grad-info">
+        <div class="grad-name">Ember Linen</div>
+        <div class="grad-desc">Warm diagonal wash — soft warmth in light, smoked coal in dark.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #FFF4EE 0%, #FFE0CC 40%, #FFD4B3 70%, #FFF4EE 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(135deg, #FFF4EE 0%, #FFE0CC 40%, #FFD4B3 70%, #FFF4EE 100%)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #1A0A00 0%, #2D1200 35%, #3D1A00 65%, #1A0A00 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(135deg, #1A0A00 0%, #2D1200 35%, #3D1A00 65%, #1A0A00 100%)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="#000000">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">#000000 with 3px #FF6B2B border</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md">
+        <div class="grad-swatch" id="rds-2"></div>
+      </div>
+      <div class="grad-info">
+        <div class="grad-name">Sunset Mesh</div>
+        <div class="grad-desc">Radial mesh — two warm glows converge. Depth without harshness.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 80% 60% at 20% 80%, #FFD4A3 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, #FFEBD9 0%, transparent 60%), #FFF7F2">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">radial-gradient(80% 60% at 20% 80%, #FFD4A3…) + #FFF7F2</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,107,43,0.25) 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, rgba(255,140,92,0.15) 0%, transparent 60%), #100800">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">radial-gradient(orange glow) + #100800</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="repeating-linear-gradient(135deg, #000 0px, #000 12px, #1A0800 12px, #1A0800 14px)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">repeating-linear-gradient(135deg, #000 … #1A0800)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md">
+        <div class="grad-swatch" id="rds-3"></div>
+      </div>
+      <div class="grad-info">
+        <div class="grad-name">Forge Flow</div>
+        <div class="grad-desc">Deep diagonal fade — white to molten amber. Hero-scale drama.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #FFFFFF 0%, #FFE8D6 30%, #FFC9A0 55%, #FFB075 80%, #FFA060 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(160deg, #FFFFFF → #FFA060)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #0F0700 0%, #1F0E00 30%, #2E1500 55%, rgba(255,107,43,0.2) 80%, rgba(255,107,43,0.05) 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(160deg, #0F0700 → orange glow)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(90deg, #000 60%, #1A0800 100%)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">linear-gradient(90deg, #000 60%, #1A0800 100%)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── DVS ── -->
+<section class="cs-section" id="dvs">
+  <div class="cs-header">
+    <span class="cs-number">02</span>
+    <div class="cs-accent-dot" style="background:#6B46FF;"></div>
+    <h2 class="cs-name">Data Visualization System</h2>
+  </div>
+  <div class="gradient-grid">
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="dvs-1"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Spectral Haze</div>
+        <div class="grad-desc">Cool diagonal wash — lavender mist, deep space on dark.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #F3EFFF 0%, #E0D4FF 40%, #CDB8FF 70%, #F3EFFF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(135deg, #F3EFFF → #CDB8FF)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #08040F 0%, #140A26 35%, #1E1040 65%, #08040F 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(135deg, #08040F → #1E1040)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="#000000">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">#000000 with 3px #6B46FF border</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="dvs-2"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Nebula Mesh</div>
+        <div class="grad-desc">Two radial glows — violet aurora effect. Cosmic depth.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 90% 70% at 15% 85%, #C4AAFF 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, #E8DCFF 0%, transparent 55%), #F8F5FF">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">radial-gradient(violet mesh) + #F8F5FF</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 90% 70% at 15% 85%, rgba(107,70,255,0.3) 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, rgba(140,107,255,0.2) 0%, transparent 55%), #080410">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">radial-gradient(purple glow) + #080410</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="repeating-linear-gradient(135deg, #000 0px, #000 12px, #080418 12px, #080418 14px)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">repeating-linear-gradient(135deg stripe)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="dvs-3"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Ultraviolet Fade</div>
+        <div class="grad-desc">White to deep violet — clean hero-scale diagonal sweep.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #FFFFFF 0%, #EDE5FF 30%, #D4BDFF 55%, #BB98FF 80%, #A87AFF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(160deg, #FFF → #A87AFF)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #050308 0%, #0E0820 30%, #180F36 55%, rgba(107,70,255,0.25) 80%, rgba(107,70,255,0.06) 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(160deg, #050308 → purple glow)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(90deg, #000 60%, #08041A 100%)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">linear-gradient(90deg, #000 → #08041A)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Design Forum ── -->
+<section class="cs-section" id="forum">
+  <div class="cs-header">
+    <span class="cs-number">03</span>
+    <div class="cs-accent-dot" style="background:#2BBFFF;"></div>
+    <h2 class="cs-name">Design Forum &amp; UX Standards</h2>
+  </div>
+  <div class="gradient-grid">
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="forum-1"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Ice Field</div>
+        <div class="grad-desc">Pure cyan diagonal wash — airy clarity in light, deep ocean in dark.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #EDFBFF 0%, #C8F3FF 40%, #A0EBFF 70%, #EDFBFF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(135deg, #EDFBFF → #A0EBFF)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #000E12 0%, #001A22 35%, #002530 65%, #000E12 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(135deg, #000E12 → #002530)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="#000000">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">#000000 with 3px #2BBFFF border</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="forum-2"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Aqua Mesh</div>
+        <div class="grad-desc">Two radial cyan glows — bioluminescent mesh. Governance clarity.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 10% 90%, #80DFFF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, #B8F2FF 0%, transparent 55%), #F0FBFF">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">radial-gradient(cyan mesh) + #F0FBFF</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 10% 90%, rgba(43,191,255,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, rgba(92,204,255,0.18) 0%, transparent 55%), #00090F">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">radial-gradient(cyan glow) + #00090F</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="repeating-linear-gradient(135deg, #000 0px, #000 12px, #000D14 12px, #000D14 14px)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">repeating-linear-gradient(135deg stripe)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="forum-3"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Signal Sweep</div>
+        <div class="grad-desc">White to electric cyan — clean, sharp, purposeful diagonal.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #FFFFFF 0%, #D6F6FF 30%, #ADECFF 55%, #7ADDFF 80%, #4ACFFF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(160deg, #FFF → #4ACFFF)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #000609 0%, #000F18 30%, #001626 55%, rgba(43,191,255,0.22) 80%, rgba(43,191,255,0.05) 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(160deg, #000609 → cyan glow)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(90deg, #000 60%, #000C18 100%)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">linear-gradient(90deg, #000 → #000C18)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Unified Platform ── -->
+<section class="cs-section" id="unified">
+  <div class="cs-header">
+    <span class="cs-number">04</span>
+    <div class="cs-accent-dot" style="background:#FF2B9E;"></div>
+    <h2 class="cs-name">Unified Platform Experience</h2>
+  </div>
+  <div class="gradient-grid">
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="unified-1"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Rose Silk</div>
+        <div class="grad-desc">Hot pink diagonal — delicate blush in light, deep crimson in dark.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #FFF0F8 0%, #FFD4EE 40%, #FFB8E2 70%, #FFF0F8 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(135deg, #FFF0F8 → #FFB8E2)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #120007 0%, #22000E 35%, #340018 65%, #120007 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(135deg, #120007 → #340018)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="#000000">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">#000000 with 3px #FF2B9E border</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="unified-2"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Flamingo Mesh</div>
+        <div class="grad-desc">Two radial pink glows — electric bloom. High energy, high polish.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 15% 85%, #FF9CD6 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFCDE9 0%, transparent 55%), #FFF5FB">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">radial-gradient(pink mesh) + #FFF5FB</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,43,158,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,92,180,0.18) 0%, transparent 55%), #0E0008">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">radial-gradient(magenta glow) + #0E0008</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="repeating-linear-gradient(135deg, #000 0px, #000 12px, #14000A 12px, #14000A 14px)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">repeating-linear-gradient(135deg stripe)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="unified-3"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Neon Bloom</div>
+        <div class="grad-desc">White to saturated magenta — high-contrast diagonal power sweep.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #FFFFFF 0%, #FFE3F4 30%, #FFC5E8 55%, #FFA0D8 80%, #FF7DC8 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(160deg, #FFF → #FF7DC8)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #0A0005 0%, #180010 30%, #260018 55%, rgba(255,43,158,0.22) 80%, rgba(255,43,158,0.05) 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(160deg, #0A0005 → magenta glow)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(90deg, #000 60%, #140008 100%)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">linear-gradient(90deg, #000 → #140008)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── AI Experience ── -->
+<section class="cs-section" id="ai">
+  <div class="cs-header">
+    <span class="cs-number">05</span>
+    <div class="cs-accent-dot" style="background:#FFB82B;"></div>
+    <h2 class="cs-name">AI Experience Standard</h2>
+  </div>
+  <div class="gradient-grid">
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="ai-1"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Parchment Gold</div>
+        <div class="grad-desc">Warm amber diagonal — ancient vellum in light, smoked bronze in dark.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #FFFBEF 0%, #FFF0C0 40%, #FFE48A 70%, #FFFBEF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(135deg, #FFFBEF → #FFE48A)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #0F0B00 0%, #201600 35%, #2E2000 65%, #0F0B00 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(135deg, #0F0B00 → #2E2000)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="#000000">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">#000000 with 3px #FFB82B border</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="ai-2"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Solstice Mesh</div>
+        <div class="grad-desc">Two radial golden glows — sun and warmth converging. Clarity and trust.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 15% 85%, #FFD96B 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFE9A0 0%, transparent 55%), #FFFCF0">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">radial-gradient(gold mesh) + #FFFCF0</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,184,43,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,200,92,0.18) 0%, transparent 55%), #0A0700">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">radial-gradient(amber glow) + #0A0700</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="repeating-linear-gradient(135deg, #000 0px, #000 12px, #100C00 12px, #100C00 14px)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">repeating-linear-gradient(135deg stripe)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="ai-3"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Auric Sweep</div>
+        <div class="grad-desc">White to molten gold — luminous, trustworthy, forward-looking.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #FFFFFF 0%, #FFF4D0 30%, #FFEAAA 55%, #FFDA7A 80%, #FFC845 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(160deg, #FFF → #FFC845)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #090600 0%, #150F00 30%, #211600 55%, rgba(255,184,43,0.22) 80%, rgba(255,184,43,0.05) 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(160deg, #090600 → amber glow)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(90deg, #000 60%, #0E0A00 100%)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">linear-gradient(90deg, #000 → #0E0A00)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Enablement ── -->
+<section class="cs-section" id="enablement">
+  <div class="cs-header">
+    <span class="cs-number">06</span>
+    <div class="cs-accent-dot" style="background:#7C3AED;"></div>
+    <h2 class="cs-name">Designer Enablement</h2>
+  </div>
+  <div class="gradient-grid">
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="enable-1"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Amethyst Veil</div>
+        <div class="grad-desc">Deep violet diagonal — soft iris in light, void-space in dark.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #F5F0FF 0%, #E2D4FF 40%, #CDBCFF 70%, #F5F0FF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(135deg, #F5F0FF → #CDBCFF)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(135deg, #060011 0%, #0E0022 35%, #160033 65%, #060011 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(135deg, #060011 → #160033)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="#000000">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">#000000 with 3px #7C3AED border</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="enable-2"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Iris Mesh</div>
+        <div class="grad-desc">Two radial violet glows — mentor light in dark space. Growth energy.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 15% 85%, #B090FF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #D4C0FF 0%, transparent 55%), #F8F4FF">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">radial-gradient(violet mesh) + #F8F4FF</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="radial-gradient(ellipse 85% 65% at 15% 85%, rgba(124,58,237,0.3) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(167,139,250,0.2) 0%, transparent 55%), #040010">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">radial-gradient(violet glow) + #040010</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="repeating-linear-gradient(135deg, #000 0px, #000 12px, #080018 12px, #080018 14px)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">repeating-linear-gradient(135deg stripe)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grad-card">
+      <div class="grad-preview size-md"><div class="grad-swatch" id="enable-3"></div></div>
+      <div class="grad-info">
+        <div class="grad-name">Dusk Ascent</div>
+        <div class="grad-desc">White to deep violet — upward motion, mentorship, clarity ascending.</div>
+        <div class="grad-codes">
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #FFFFFF 0%, #EAE0FF 30%, #D4C0FF 55%, #B896FF 80%, #9E70FF 100%)">
+            <span class="grad-code-theme-tag tag-light">LIGHT</span>
+            <span class="grad-code-val">linear-gradient(160deg, #FFF → #9E70FF)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(160deg, #030008 0%, #090016 30%, #0E0024 55%, rgba(124,58,237,0.25) 80%, rgba(124,58,237,0.06) 100%)">
+            <span class="grad-code-theme-tag tag-dark">DARK</span>
+            <span class="grad-code-val">linear-gradient(160deg, #030008 → violet glow)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+          <div class="grad-code-row" data-copy="linear-gradient(90deg, #000 60%, #060014 100%)">
+            <span class="grad-code-theme-tag tag-hc">HC</span>
+            <span class="grad-code-val">linear-gradient(90deg, #000 → #060014)</span>
+            <span class="copy-icon">⎘</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<div class="toast" id="toast">CSS copied to clipboard</div>
+
+<script>
+// ── Mode toggle ──────────────────────────────────────────────────────────────
+const body = document.body;
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    body.dataset.mode = btn.dataset.m;
+    applyGradients();
+  });
+});
+
+// ── Size toggle ──────────────────────────────────────────────────────────────
+let currentSize = 'md';
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSize = btn.dataset.s;
+    document.querySelectorAll('.grad-preview').forEach(el => {
+      el.className = `grad-preview size-${currentSize}`;
+    });
+  });
+});
+
+// ── Gradient registry ────────────────────────────────────────────────────────
+const GRADIENTS = {
+  // RDS
+  'rds-1': {
+    light: 'linear-gradient(135deg, #FFF4EE 0%, #FFE0CC 40%, #FFD4B3 70%, #FFF4EE 100%)',
+    dark:  'linear-gradient(135deg, #1A0A00 0%, #2D1200 35%, #3D1A00 65%, #1A0A00 100%)',
+    hc:    '#000000',
+  },
+  'rds-2': {
+    light: "radial-gradient(ellipse 80% 60% at 20% 80%, #FFD4A3 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, #FFEBD9 0%, transparent 60%), #FFF7F2",
+    dark:  "radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,107,43,0.25) 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, rgba(255,140,92,0.15) 0%, transparent 60%), #100800",
+    hc:    "repeating-linear-gradient(135deg, #000 0px, #000 12px, #1A0800 12px, #1A0800 14px)",
+  },
+  'rds-3': {
+    light: 'linear-gradient(160deg, #FFFFFF 0%, #FFE8D6 30%, #FFC9A0 55%, #FFB075 80%, #FFA060 100%)',
+    dark:  'linear-gradient(160deg, #0F0700 0%, #1F0E00 30%, #2E1500 55%, rgba(255,107,43,0.2) 80%, rgba(255,107,43,0.05) 100%)',
+    hc:    'linear-gradient(90deg, #000 60%, #1A0800 100%)',
+  },
+  // DVS
+  'dvs-1': {
+    light: 'linear-gradient(135deg, #F3EFFF 0%, #E0D4FF 40%, #CDB8FF 70%, #F3EFFF 100%)',
+    dark:  'linear-gradient(135deg, #08040F 0%, #140A26 35%, #1E1040 65%, #08040F 100%)',
+    hc:    '#000000',
+  },
+  'dvs-2': {
+    light: "radial-gradient(ellipse 90% 70% at 15% 85%, #C4AAFF 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, #E8DCFF 0%, transparent 55%), #F8F5FF",
+    dark:  "radial-gradient(ellipse 90% 70% at 15% 85%, rgba(107,70,255,0.3) 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, rgba(140,107,255,0.2) 0%, transparent 55%), #080410",
+    hc:    "repeating-linear-gradient(135deg, #000 0px, #000 12px, #080418 12px, #080418 14px)",
+  },
+  'dvs-3': {
+    light: 'linear-gradient(160deg, #FFFFFF 0%, #EDE5FF 30%, #D4BDFF 55%, #BB98FF 80%, #A87AFF 100%)',
+    dark:  'linear-gradient(160deg, #050308 0%, #0E0820 30%, #180F36 55%, rgba(107,70,255,0.25) 80%, rgba(107,70,255,0.06) 100%)',
+    hc:    'linear-gradient(90deg, #000 60%, #08041A 100%)',
+  },
+  // Forum
+  'forum-1': {
+    light: 'linear-gradient(135deg, #EDFBFF 0%, #C8F3FF 40%, #A0EBFF 70%, #EDFBFF 100%)',
+    dark:  'linear-gradient(135deg, #000E12 0%, #001A22 35%, #002530 65%, #000E12 100%)',
+    hc:    '#000000',
+  },
+  'forum-2': {
+    light: "radial-gradient(ellipse 85% 65% at 10% 90%, #80DFFF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, #B8F2FF 0%, transparent 55%), #F0FBFF",
+    dark:  "radial-gradient(ellipse 85% 65% at 10% 90%, rgba(43,191,255,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, rgba(92,204,255,0.18) 0%, transparent 55%), #00090F",
+    hc:    "repeating-linear-gradient(135deg, #000 0px, #000 12px, #000D14 12px, #000D14 14px)",
+  },
+  'forum-3': {
+    light: 'linear-gradient(160deg, #FFFFFF 0%, #D6F6FF 30%, #ADECFF 55%, #7ADDFF 80%, #4ACFFF 100%)',
+    dark:  'linear-gradient(160deg, #000609 0%, #000F18 30%, #001626 55%, rgba(43,191,255,0.22) 80%, rgba(43,191,255,0.05) 100%)',
+    hc:    'linear-gradient(90deg, #000 60%, #000C18 100%)',
+  },
+  // Unified
+  'unified-1': {
+    light: 'linear-gradient(135deg, #FFF0F8 0%, #FFD4EE 40%, #FFB8E2 70%, #FFF0F8 100%)',
+    dark:  'linear-gradient(135deg, #120007 0%, #22000E 35%, #340018 65%, #120007 100%)',
+    hc:    '#000000',
+  },
+  'unified-2': {
+    light: "radial-gradient(ellipse 85% 65% at 15% 85%, #FF9CD6 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFCDE9 0%, transparent 55%), #FFF5FB",
+    dark:  "radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,43,158,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,92,180,0.18) 0%, transparent 55%), #0E0008",
+    hc:    "repeating-linear-gradient(135deg, #000 0px, #000 12px, #14000A 12px, #14000A 14px)",
+  },
+  'unified-3': {
+    light: 'linear-gradient(160deg, #FFFFFF 0%, #FFE3F4 30%, #FFC5E8 55%, #FFA0D8 80%, #FF7DC8 100%)',
+    dark:  'linear-gradient(160deg, #0A0005 0%, #180010 30%, #260018 55%, rgba(255,43,158,0.22) 80%, rgba(255,43,158,0.05) 100%)',
+    hc:    'linear-gradient(90deg, #000 60%, #140008 100%)',
+  },
+  // AI
+  'ai-1': {
+    light: 'linear-gradient(135deg, #FFFBEF 0%, #FFF0C0 40%, #FFE48A 70%, #FFFBEF 100%)',
+    dark:  'linear-gradient(135deg, #0F0B00 0%, #201600 35%, #2E2000 65%, #0F0B00 100%)',
+    hc:    '#000000',
+  },
+  'ai-2': {
+    light: "radial-gradient(ellipse 85% 65% at 15% 85%, #FFD96B 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFE9A0 0%, transparent 55%), #FFFCF0",
+    dark:  "radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,184,43,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,200,92,0.18) 0%, transparent 55%), #0A0700",
+    hc:    "repeating-linear-gradient(135deg, #000 0px, #000 12px, #100C00 12px, #100C00 14px)",
+  },
+  'ai-3': {
+    light: 'linear-gradient(160deg, #FFFFFF 0%, #FFF4D0 30%, #FFEAAA 55%, #FFDA7A 80%, #FFC845 100%)',
+    dark:  'linear-gradient(160deg, #090600 0%, #150F00 30%, #211600 55%, rgba(255,184,43,0.22) 80%, rgba(255,184,43,0.05) 100%)',
+    hc:    'linear-gradient(90deg, #000 60%, #0E0A00 100%)',
+  },
+  // Enablement
+  'enable-1': {
+    light: 'linear-gradient(135deg, #F5F0FF 0%, #E2D4FF 40%, #CDBCFF 70%, #F5F0FF 100%)',
+    dark:  'linear-gradient(135deg, #060011 0%, #0E0022 35%, #160033 65%, #060011 100%)',
+    hc:    '#000000',
+  },
+  'enable-2': {
+    light: "radial-gradient(ellipse 85% 65% at 15% 85%, #B090FF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #D4C0FF 0%, transparent 55%), #F8F4FF",
+    dark:  "radial-gradient(ellipse 85% 65% at 15% 85%, rgba(124,58,237,0.3) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(167,139,250,0.2) 0%, transparent 55%), #040010",
+    hc:    "repeating-linear-gradient(135deg, #000 0px, #000 12px, #080018 12px, #080018 14px)",
+  },
+  'enable-3': {
+    light: 'linear-gradient(160deg, #FFFFFF 0%, #EAE0FF 30%, #D4C0FF 55%, #B896FF 80%, #9E70FF 100%)',
+    dark:  'linear-gradient(160deg, #030008 0%, #090016 30%, #0E0024 55%, rgba(124,58,237,0.25) 80%, rgba(124,58,237,0.06) 100%)',
+    hc:    'linear-gradient(90deg, #000 60%, #060014 100%)',
+  },
+};
+
+function applyGradients() {
+  const mode = body.dataset.mode || 'light';
+  Object.entries(GRADIENTS).forEach(([id, variants]) => {
+    const el = document.getElementById(id);
+    if (el) el.style.background = variants[mode] || variants.light;
+  });
+}
+
+// Initial render
+applyGradients();
+
+// ── Copy to clipboard ────────────────────────────────────────────────────────
+const toast = document.getElementById('toast');
+let toastTimeout;
+
+document.querySelectorAll('.grad-code-row').forEach(row => {
+  row.addEventListener('click', () => {
+    const val = row.dataset.copy;
+    if (!val) return;
+    try {
+      navigator.clipboard.writeText(val).then(() => showToast());
+    } catch(e) {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = val; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showToast();
+    }
+  });
+});
+
+function showToast() {
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>

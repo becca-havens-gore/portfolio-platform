@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Preview — Rebecca Gore</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: #EFEFED;
+  color: #1A1A1A;
+  padding: 48px 40px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  color: #1A1A1A;
+}
+.page-sub {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 48px;
+}
+
+/* ── Swatch grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+.swatch {
+  border-radius: 16px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  position: relative;
+}
+.swatch-label {
+  position: absolute;
+  top: 14px; right: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* Light */
+.swatch-light {
+  background: #FFFFFF;
+  color: #1A1A1A;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.swatch-light .swatch-label { color: #1A1A1A; }
+
+/* Tinted light */
+.swatch-tint {
+  background: linear-gradient(135deg, #FFF4EE 0%, #FFF0F8 100%);
+  color: #1A1A1A;
+  border: 1px solid rgba(255,107,43,0.12);
+}
+.swatch-tint .swatch-label { color: #1A1A1A; }
+
+/* Dark */
+.swatch-dark {
+  background: #111111;
+  color: #F0F0F0;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.swatch-dark .swatch-label { color: #F0F0F0; }
+
+/* Deep dark */
+.swatch-deep {
+  background: #0A0A0A;
+  color: #E8E8E8;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.swatch-deep .swatch-label { color: #E8E8E8; }
+
+/* High contrast */
+.swatch-hc {
+  background: #000000;
+  color: #FFFFFF;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+.swatch-hc .swatch-label { color: #FFFF00; }
+
+/* Dark gradient (like the hero) */
+.swatch-hero-dark {
+  background: linear-gradient(135deg, #1A0A00 0%, #2D1200 35%, #3D1A00 100%);
+  color: #F0F0F0;
+  border: 1px solid rgba(255,107,43,0.15);
+}
+.swatch-hero-dark .swatch-label { color: #F0F0F0; }
+
+/* ── Logo sizing variants ── */
+.logo-row {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+/* Horizontal logo */
+.logo-horiz svg {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* Mark only */
+.logo-marks {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo-mark-lg svg { height: 40px; width: auto; }
+.logo-mark-md svg { height: 28px; width: auto; }
+.logo-mark-sm svg { height: 20px; width: auto; }
+.logo-mark-xs svg { height: 14px; width: auto; }
+
+/* ── Size showcase ── */
+.size-row {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.size-row h2 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: -16px;
+}
+.size-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.size-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: #AAAAAA;
+  width: 36px;
+  flex-shrink: 0;
+}
+.size-item svg { color: #1A1A1A; }
+
+/* ── Export info ── */
+.export-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+.export-card {
+  background: #FFF;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+.export-card h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1A1A1A;
+}
+.export-card p {
+  font-size: 12px;
+  color: #6A6A6A;
+  line-height: 1.6;
+}
+.export-card code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  background: #F0F0EE;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #FF6B2B;
+}
+</style>
+</head>
+<body>
+
+<h1>Logo System — Rebecca Gore</h1>
+<p class="page-sub">Portfolio identity · All theme variants</p>
+
+<!-- ══ Theme swatches ══════════════════════════════════════════════════════ -->
+<div class="grid">
+
+  <!-- White -->
+  <div class="swatch swatch-light">
+    <span class="swatch-label">Light</span>
+    <div class="logo-row">
+      <div class="logo-horiz">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none">
+          <rect x="4"  y="4"  width="13" height="3" fill="currentColor"/>
+          <rect x="4"  y="4"  width="3"  height="13" fill="currentColor"/>
+          <rect x="27" y="4"  width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="4"  width="3"  height="13" fill="currentColor"/>
+          <rect x="4"  y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="4"  y="27" width="3"  height="13" fill="currentColor"/>
+          <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="27" width="3"  height="13" fill="currentColor"/>
+          <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+          <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+          <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+        </svg>
+      </div>
+      <div class="logo-marks">
+        <div class="logo-mark-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+        <div class="logo-mark-md">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+        <div class="logo-mark-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+        <div class="logo-mark-xs">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Light tinted -->
+  <div class="swatch swatch-tint">
+    <span class="swatch-label">Tinted</span>
+    <div class="logo-row">
+      <div class="logo-horiz">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none">
+          <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+          <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+          <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark -->
+  <div class="swatch swatch-dark">
+    <span class="swatch-label">Dark</span>
+    <div class="logo-row">
+      <div class="logo-horiz">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none">
+          <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+          <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+          <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+        </svg>
+      </div>
+      <div class="logo-marks">
+        <div class="logo-mark-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+        <div class="logo-mark-md">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+        <div class="logo-mark-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+            <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+            <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero dark gradient -->
+  <div class="swatch swatch-hero-dark">
+    <span class="swatch-label">Hero bg</span>
+    <div class="logo-row">
+      <div class="logo-horiz">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none">
+          <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+          <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+          <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- High contrast -->
+  <div class="swatch swatch-hc">
+    <span class="swatch-label" style="color:#FFD700;opacity:1">High Contrast</span>
+    <div class="logo-row">
+      <div class="logo-horiz">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none">
+          <rect x="4" y="4" width="13" height="3" fill="white"/>
+          <rect x="4" y="4" width="3" height="13" fill="white"/>
+          <rect x="27" y="4" width="13" height="3" fill="white"/>
+          <rect x="37" y="4" width="3" height="13" fill="white"/>
+          <rect x="4" y="37" width="13" height="3" fill="white"/>
+          <rect x="4" y="27" width="3" height="13" fill="white"/>
+          <rect x="27" y="37" width="13" height="3" fill="white"/>
+          <rect x="37" y="27" width="3" height="13" fill="white"/>
+          <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FFD700"/>
+          <rect x="54" y="8" width="1" height="28" fill="white" opacity="0.3"/>
+          <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="white">Rebecca Gore</text>
+          <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="#FFD700">DESIGN SYSTEMS LEAD</text>
+        </svg>
+      </div>
+      <div class="logo-marks">
+        <div class="logo-mark-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none">
+            <rect x="4" y="4" width="13" height="3" fill="white"/>
+            <rect x="4" y="4" width="3" height="13" fill="white"/>
+            <rect x="27" y="4" width="13" height="3" fill="white"/>
+            <rect x="37" y="4" width="3" height="13" fill="white"/>
+            <rect x="4" y="37" width="13" height="3" fill="white"/>
+            <rect x="4" y="27" width="3" height="13" fill="white"/>
+            <rect x="27" y="37" width="13" height="3" fill="white"/>
+            <rect x="37" y="27" width="3" height="13" fill="white"/>
+            <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FFD700"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deep dark -->
+  <div class="swatch swatch-deep">
+    <span class="swatch-label">Deep Dark</span>
+    <div class="logo-row">
+      <div class="logo-horiz">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none">
+          <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+          <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+          <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+          <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+          <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+          <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+          <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+<!-- ══ Size scale ══════════════════════════════════════════════════════════ -->
+<div class="size-row">
+  <h2>Scale</h2>
+
+  <div class="size-item">
+    <span class="size-tag">48px</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" height="48" fill="none" style="color:#1A1A1A">
+      <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+      <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+      <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+      <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+      <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+      <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+      <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+      <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+      <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+      <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+      <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+      <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+    </svg>
+  </div>
+
+  <div class="size-item">
+    <span class="size-tag">32px</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" height="32" fill="none" style="color:#1A1A1A">
+      <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+      <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+      <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+      <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+      <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+      <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+      <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+      <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+      <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+      <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+      <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+      <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+    </svg>
+  </div>
+
+  <div class="size-item">
+    <span class="size-tag">24px</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" height="24" fill="none" style="color:#1A1A1A">
+      <rect x="4" y="4" width="13" height="3" fill="currentColor"/>
+      <rect x="4" y="4" width="3" height="13" fill="currentColor"/>
+      <rect x="27" y="4" width="13" height="3" fill="currentColor"/>
+      <rect x="37" y="4" width="3" height="13" fill="currentColor"/>
+      <rect x="4" y="37" width="13" height="3" fill="currentColor"/>
+      <rect x="4" y="27" width="3" height="13" fill="currentColor"/>
+      <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+      <rect x="37" y="27" width="3" height="13" fill="currentColor"/>
+      <rect x="18.5" y="18.5" width="7" height="7" transform="rotate(45 22 22)" fill="#FF6B2B"/>
+      <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+      <text x="66" y="19" font-family="'Playfair Display', Georgia, serif" font-size="21" font-weight="700" letter-spacing="-0.3" fill="currentColor">Rebecca Gore</text>
+      <text x="67" y="34" font-family="'IBM Plex Sans', Helvetica, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1.6" fill="currentColor" opacity="0.45">DESIGN SYSTEMS LEAD</text>
+    </svg>
+  </div>
+
+</div>
+
+<!-- ══ Usage notes ══════════════════════════════════════════════════════════ -->
+<div class="export-grid">
+  <div class="export-card">
+    <h3>logo-horizontal.svg</h3>
+    <p>Full lockup — mark + wordmark + subtitle. Embed in the portfolio header as an <code>&lt;img&gt;</code> or inline SVG. Inline SVG inherits <code>currentColor</code> from the parent element's <code>color</code> CSS property for automatic dark-mode adaptation.</p>
+  </div>
+  <div class="export-card">
+    <h3>logo-mark.svg</h3>
+    <p>Mark only — use as a favicon (<code>favicon.svg</code>), social avatar, or anywhere space is constrained. At 16–20px the orange diamond still reads clearly against both light and dark backgrounds.</p>
+  </div>
+  <div class="export-card">
+    <h3>Inline SVG usage (recommended)</h3>
+    <p>Paste the SVG code directly into your HTML so <code>currentColor</code> inherits from the header's text color. No separate file request, and the theme switcher handles dark/light automatically with zero extra CSS.</p>
+  </div>
+  <div class="export-card">
+    <h3>High-contrast variant</h3>
+    <p>For the <code>[data-theme="high-contrast"]</code> override, change the bracket fill from <code>currentColor</code> to <code>#FFFFFF</code> and the diamond from <code>#FF6B2B</code> to <code>#FFD700</code> — matching the HC accent already in your system.</p>
+  </div>
+</div>
+
+</body>
+</html>

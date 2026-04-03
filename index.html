@@ -1,0 +1,2436 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="light dark" name="color-scheme"/>
+<meta content="#FAFAFA" name="theme-color"/>
+<link href="logo.svg" rel="icon" type="image/svg+xml"/>
+<title>Rebecca Havens Gore — Principal Product Designer, DevSecOps Platforms &amp; Design Systems</title>
+<meta content="Principal Product Designer specializing in developer platforms, DevSecOps-adjacent workflows, observability, and scalable design foundations for technical users." name="description"/>
+<script>!function(){try{var s=localStorage.getItem('rg-theme')||'auto',a=s==='auto'?(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'):s;document.documentElement.setAttribute('data-theme',a),document.documentElement.setAttribute('data-theme-pref',s)}catch(e){}}();</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@700;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'IBM Plex Sans', sans-serif;
+            --color-bg-primary: #FAFAFA;
+            --color-bg-secondary: #FFFFFF;
+            --color-bg-tertiary: #F0F0F0;
+            --color-text-primary: #1A1A1A;
+            --color-text-secondary: #4A4A4A;
+            --color-text-tertiary: #6A6A6A;
+            --color-accent: #FF6B2B;
+            --color-accent-hover: #E85A1F;
+            --color-border: rgba(0, 0, 0, 0.08);
+            --color-border-subtle: rgba(0, 0, 0, 0.06);
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 48px;
+            --space-xl: 80px;
+            --space-2xl: 120px;
+            --motion-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+            --motion-medium: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --motion-slow: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+            --motion-emphasized: 260ms cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+
+        /* High Contrast Mode */
+        [data-theme="high-contrast"] {
+            --color-bg-primary: #000000;
+            --color-bg-secondary: #000000;
+            --color-bg-tertiary: #1A1A1A;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #FFFFFF;
+            --color-text-tertiary: #E0E0E0;
+            --color-accent: #FFD700;
+            --color-accent-hover: #FFC700;
+            --color-border: #FFFFFF;
+            --color-border-subtle: rgba(255, 255, 255, 0.3);
+        }
+        [data-theme="high-contrast"] .header { background: #000; border-bottom-color: #FFF; backdrop-filter: none; -webkit-backdrop-filter: none; }
+        [data-theme="high-contrast"] .hero__title { background: none; -webkit-background-clip: unset; -webkit-text-fill-color: #FFD700; background-clip: unset; }
+        [data-theme="high-contrast"] .case-card { border-color: #FFF; }
+        [data-theme="high-contrast"] .case-card:hover { border-color: #FFD700; }
+        [data-theme="high-contrast"] .btn-primary { background: #FFD700; color: #000; border-color: #FFD700; }
+        [data-theme="high-contrast"] .btn-secondary { border-color: #FFF; color: #FFF; }
+        [data-theme="high-contrast"] :focus-visible { outline: 4px solid #FFD700; }
+        
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --color-bg-primary: #0F0F0F;
+            --color-bg-secondary: #1A1A1A;
+            --color-bg-tertiary: #252525;
+            --color-text-primary: #F5F5F5;
+            --color-text-secondary: #B8B8B8;
+            --color-text-tertiary: #888888;
+            --color-border: rgba(255, 255, 255, 0.12);
+            --color-border-subtle: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] { color-scheme: dark; }
+        [data-theme="light"], [data-theme="high-contrast"] { color-scheme: light; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* scroll-behavior in reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--color-text-primary);
+            background: var(--color-bg-primary);
+            -webkit-font-smoothing: antialiased;
+            transition: background-color var(--transition-base), color var(--transition-base);
+
+        }
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 16px;
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--color-accent);
+            z-index: 9999;
+            transition: top var(--motion-medium);
+        }
+        .skip-link:focus { top: 16px; outline: 3px solid var(--color-accent); outline-offset: 3px; }
+
+        /* Main landmark scroll margin */
+        #main-content { scroll-margin-top: 120px; }
+
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+        button:focus-visible, a:focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 3px;
+        }
+
+        /* Animations & Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        @keyframes caseCardBorderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes cardShimmer {
+            0% { transform: translateX(0) skewX(-20deg); }
+            50% { transform: translateX(250%) skewX(-20deg); }
+            100% { transform: translateX(250%) skewX(-20deg); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes systemPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            padding: var(--space-md) var(--space-lg);
+            transition: all var(--transition-base);
+        }
+
+        [data-theme="dark"] .header {
+            background: rgba(15, 15, 15, 0.8);
+        }
+        [data-theme="high-contrast"] .header { 
+            background: #000; 
+            border-bottom-color: #FFF; 
+            backdrop-filter: none; 
+            -webkit-backdrop-filter: none; }
+
+        .header__container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .header__logo {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .header__logo-text {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .header__logo-mark {
+            flex-shrink: 0;
+        }
+
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-left: var(--space-md);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .nav__links {
+            display: flex;
+            gap: var(--space-lg);
+            list-style: none;
+            min-width: 0;
+        }
+
+        .nav__link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color var(--transition-fast);
+        }
+
+        .nav__link:hover {
+            color: var(--color-accent);
+        }
+
+        .nav__link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width var(--transition-fast);
+        }
+
+        .nav__link:hover::after {
+            width: 100%;
+        }
+
+        /* ─── Theme Controls ─── */
+        .theme-controls {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 4px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            flex-shrink: 0;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: rgba(26, 26, 26, 0.85);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .theme-btn svg { width: 18px; height: 18px; fill: currentColor; opacity: 0.85; transition: all var(--motion-medium); }
+        .theme-btn:hover { color: var(--color-accent); transform: translateY(-1px); }
+        .theme-btn.active {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            color: var(--color-accent);
+            box-shadow: 0 4px 12px rgba(255, 107, 43, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+        }
+        [data-theme="dark"] .theme-controls { background: rgba(26, 26, 26, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.4); }
+        [data-theme="dark"] .theme-btn { color: #e5e5e5; }
+        [data-theme="dark"] .theme-btn svg { opacity: 1; }
+        [data-theme="dark"] .theme-btn.active { background: rgba(255, 255, 255, 0.12); box-shadow: 0 4px 12px rgba(255,107,43,0.35), inset 0 1px 0 rgba(255,255,255,0.1); }
+        :root:not([data-theme="dark"]):not([data-theme="high-contrast"]) .theme-controls { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.12); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+        :root:not([data-theme="dark"]):not([data-theme="high-contrast"]) .theme-btn { color: #1A1A1A; opacity: 1; }
+        :root:not([data-theme="dark"]):not([data-theme="high-contrast"]) .theme-btn:hover { opacity: 1; }
+        :root:not([data-theme="dark"]):not([data-theme="high-contrast"]) .theme-btn.active { background: rgba(0,0,0,0.08); color: #1A1A1A; opacity: 1; box-shadow: none; }
+        :root:not([data-theme="dark"]):not([data-theme="high-contrast"]) .theme-dropdown-item { color: #1A1A1A; }
+        [data-theme="high-contrast"] .theme-controls { background: #000; border: 3px solid #FFF; box-shadow: none; backdrop-filter: none; }
+        [data-theme="high-contrast"] .theme-btn { color: #FFF; border: 2px solid #666; background: #1a1a1a; font-weight: 700; }
+        [data-theme="high-contrast"] .theme-btn:hover { border-color: #FFD700; background: #2a2a2a; }
+        [data-theme="high-contrast"] .theme-btn.active { background: #FFD700; color: #000; border-color: #FFD700; box-shadow: none; }
+        
+        /* Theme Dropdown (tablet) */
+        .theme-dropdown { display: none; position: relative; }
+        .theme-dropdown-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 10px 16px;
+            cursor: pointer;
+            color: rgba(26, 26, 26, 0.85);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-width: 172px;
+            transition: all var(--motion-medium);
+            flex-shrink: 0;
+        }
+        .theme-dropdown-button__content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+        .theme-dropdown-current-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .theme-dropdown-current-icon svg,
+        .theme-dropdown-button svg { width: 18px; height: 18px; fill: currentColor; opacity: 0.85; }
+        .theme-dropdown-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .theme-dropdown-caret {
+            flex-shrink: 0;
+            transition: transform var(--motion-medium);
+        }
+        .theme-dropdown-button[aria-expanded="true"] .theme-dropdown-caret {
+            transform: rotate(180deg);
+        }
+        .theme-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 180px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            z-index: 1000;
+            animation: slideDown 0.2s ease-out;
+        }
+        .theme-dropdown-menu.active { display: block; }
+        .theme-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: rgba(26, 26, 26, 0.85);
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            transition: all var(--motion-fast);
+        }
+        .theme-dropdown-item svg { width: 18px; height: 18px; fill: currentColor; }
+        .theme-dropdown-item:hover { background: rgba(255,107,43,0.1); color: var(--color-accent); }
+        .theme-dropdown-item.active { background: rgba(255,107,43,0.15); color: var(--color-accent); font-weight: 600; }
+        [data-theme="dark"] .theme-dropdown-button { color: #e5e5e5; }
+        [data-theme="dark"] .theme-dropdown-menu { background: rgba(26,26,26,0.95); border: 1px solid rgba(255,255,255,0.1); }
+        [data-theme="dark"] .theme-dropdown-item { color: #e5e5e5; }
+        [data-theme="dark"] .theme-dropdown-item:hover { background: rgba(255,107,43,0.15); }
+        :root:not([data-theme="dark"]):not([data-theme="high-contrast"]) .theme-dropdown-button { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.12); color: var(--color-text-primary); }
+        [data-theme="high-contrast"] .theme-dropdown-button { background: #000; border: 3px solid #FFF; color: #FFF; backdrop-filter: none; }
+        [data-theme="high-contrast"] .theme-dropdown-menu { background: #000; border: 3px solid #FFF; backdrop-filter: none; }
+        [data-theme="high-contrast"] .theme-dropdown-item { color: #FFF; border: 2px solid #666; background: #1a1a1a; margin-bottom: 4px; }
+        [data-theme="high-contrast"] .theme-dropdown-item:hover { border-color: #FFD700; background: #2a2a2a; }
+        [data-theme="high-contrast"] .theme-dropdown-item.active { background: #FFD700; color: #000; border-color: #FFD700; }
+
+        @media (max-width: 1296px) {
+            .theme-controls { display: none; }
+            .theme-dropdown { display: block; }
+        }
+
+
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--color-text-primary);
+            border-radius: 2px;
+            transition: all var(--transition-fast);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile Nav Overlay */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 73px;
+            right: -100%;
+            width: 280px;
+            height: calc(100vh - 73px);
+            background: var(--color-bg-secondary);
+            padding: var(--space-lg);
+            transition: right var(--transition-base);
+            z-index: 999;
+            overflow-y: auto;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .nav-menu[hidden] {
+            display: none;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu .nav__links {
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .nav-menu .nav__link {
+            font-size: 20px;
+        }
+
+        .nav-menu .theme-controls {
+            display: flex;
+            margin-top: var(--space-lg);
+            flex-direction: column;
+            align-items: stretch;
+            background: transparent;
+            border: none; padding: 0;
+            box-shadow: none; backdrop-filter: none;
+        }
+
+        .nav-menu .theme-btn {
+            width: 100%;
+            background: rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.12);
+            color: var(--color-text-primary);
+            justify-content: flex-start;
+            padding: 16px 20px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .nav-menu .theme-btn svg { opacity: 1; flex-shrink: 0; }
+        .nav-menu .theme-btn:hover { background: rgba(255,107,43,0.1); border-color: var(--color-accent); }
+        .nav-menu .theme-btn.active { background: var(--color-accent); color: white; border-color: var(--color-accent); }
+        [data-theme="dark"] .nav-menu .theme-btn { background: rgba(255,255,255,0.08); color: #e5e5e5; }
+        [data-theme="dark"] .nav-menu .theme-btn.active { background: var(--color-accent); color: white; }
+        [data-theme="high-contrast"] .nav-menu .theme-btn { background: #1a1a1a; border: 2px solid #666; color: #FFF; }
+        [data-theme="high-contrast"] .nav-menu .theme-btn.active { background: #FFD700; color: #000; border-color: #FFD700; }
+
+
+        /* Responsive Navigation */
+        @media (max-width: 1093px) {
+            .header__nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+        @media (max-width: 768px) { .header__container { padding: 0 var(--space-md); } }
+
+
+        /* Hero Section */
+        .hero {
+            padding: 140px var(--space-lg) var(--space-2xl);
+            background: linear-gradient(135deg, rgba(255, 107, 43, 0.08) 0%, rgba(107, 70, 255, 0.08) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 43, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(107, 70, 255, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero__container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero__eyebrow {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero__title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 900;
+            margin-bottom: var(--space-md);
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .hero__subtitle {
+            font-size: 22px;
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 0 auto var(--space-lg);
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+        .micro-credentials {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-lg);
+            animation: fadeInUp 1.1s ease-out 0.25s backwards;
+        }
+        .credential-badge {
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,107,43,0.2);
+            color: var(--color-text-primary);
+            transition: all var(--motion-medium);
+        }
+        [data-theme="dark"] .credential-badge { background: rgba(26,26,26,0.8); border-color: rgba(255,107,43,0.3); }
+        [data-theme="high-contrast"] .credential-badge { background: #000; border-color: var(--color-accent); color: #FFF; }
+        .credential-badge:hover { background: rgba(255,107,43,0.15); border-color: var(--color-accent); transform: translateY(-2px); }
+
+        .hero__cta {
+            display: inline-flex;
+            gap: var(--space-md);
+            animation: fadeInUp 1.2s ease-out 0.3s backwards;
+        }
+
+     /* ─── Buttons ─── */
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 43, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-text-primary);
+            border-color: var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        /* ─── Proof Bar ─── */
+        .proof-bar {
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-md) var(--space-lg);
+        }
+        .proof-bar__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+        .proof-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            text-align: center;
+        }
+        .proof-stat strong {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+        .proof-stat span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-tertiary);
+            font-weight: 600;
+        }
+        @media (max-width: 600px) { .proof-bar__inner { gap: var(--space-md); } .proof-stat strong { font-size: 18px; } }
+
+        /* Sections */
+        .section {
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-eyebrow {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin-bottom: var(--space-md);
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section--secondary {
+            background: var(--color-bg-secondary);
+        }
+        .section-subtitle--spaced {
+            margin-bottom: var(--space-md);
+        }
+        .section-intro {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+        }
+        .section-intro p + p {
+            margin-top: var(--space-md);
+        }
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: 28px;
+            text-align: center;
+        }
+        .section-heading--tight {
+            margin-bottom: var(--space-md);
+        }
+        .section-heading--loose {
+            margin-bottom: var(--space-lg);
+        }
+        .section-copy {
+            text-align: center;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Work Grid - Responsive 4→2→1 */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            column-gap: var(--space-md);
+            row-gap: var(--space-lg);
+        }
+
+        @media (max-width: 1100px) {
+            .work-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                column-gap: var(--space-sm);
+                row-gap: var(--space-md);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .work-grid {
+                grid-template-columns: 1fr;
+                column-gap: var(--space-xs);
+                row-gap: var(--space-md);
+            }
+        }
+
+        /* Case Study Cards with Glassmorphic Effect & Animated Border */
+        .case-card {
+            position: relative;
+            background: var(--color-bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--color-border-subtle);
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background var(--transition-base);
+        }
+        .case-card:focus-visible {
+            transform: translateY(-6px);
+            box-shadow: 0 0 0 4px rgba(255, 107, 43, 0.22), 0 18px 42px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Animated gradient border */
+        .case-card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background: conic-gradient(
+                from 180deg,
+                #FF6B2B,
+                #FF2E93,
+                #6B46FF,
+                #2BBFFF,
+                #FF6B2B
+            );
+            background-size: 300% 300%;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            z-index: -1;
+            animation: caseCardBorderRotate 6s linear infinite;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px) scale(1.015);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+            border-color: transparent;
+            background: linear-gradient(160deg, #1A0A2E 0%, #0D1B38 60%, #0A1A0A 100%);
+        }
+        [data-theme="dark"] .case-card:hover { background: linear-gradient(160deg, #1A0A2E 0%, #0D1B38 60%, #0A1A0A 100%); }
+
+        .case-card:hover::before {
+            opacity: 1;
+        }
+        .case-card:focus-visible::before {
+            opacity: 1;
+        }
+
+        .case-header {
+            height: 220px;
+            background: linear-gradient(135deg, var(--color-accent), #FF8C5C);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .case-card:hover .case-header { transform: scale(1.03); }
+
+        /* Shimmer effect */
+        .case-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                rgba(255, 255, 255, 0.0) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.0) 100%
+            );
+            transform: skewX(-20deg);
+            animation: cardShimmer 4s ease-in-out infinite;
+        }
+
+        
+        /* Gradient library — radial spotlight variants (light mode) */
+        .case-header[data-color="orange"]  { background: radial-gradient(ellipse 80% 60% at 20% 80%, #FFD4A3 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, #FFEBD9 0%, transparent 60%), #FFF7F2; }
+        .case-header[data-color="purple"]  { background: radial-gradient(ellipse 90% 70% at 15% 85%, #C4AAFF 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, #E8DCFF 0%, transparent 55%), #F8F5FF; }
+        .case-header[data-color="cyan"]    { background: radial-gradient(ellipse 85% 65% at 10% 90%, #80DFFF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, #B8F2FF 0%, transparent 55%), #F0FBFF; }
+        .case-header[data-color="magenta"] { background: radial-gradient(ellipse 85% 65% at 15% 85%, #FF9CD6 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFCDE9 0%, transparent 55%), #FFF5FB; }
+        .case-header[data-color="amber"]   { background: radial-gradient(ellipse 85% 65% at 15% 85%, #FFD96B 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #FFE9A0 0%, transparent 55%), #FFFCF0; }
+        .case-header[data-color="violet"]  { background: radial-gradient(ellipse 85% 65% at 15% 85%, #B090FF 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, #D4C0FF 0%, transparent 55%), #F8F4FF; }
+        /* Dark mode variants */
+        [data-theme="dark"] .case-header[data-color="orange"]  { background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,107,43,0.25) 0%, transparent 60%), radial-gradient(ellipse 70% 70% at 80% 20%, rgba(255,140,92,0.15) 0%, transparent 60%), #100800; }
+        [data-theme="dark"] .case-header[data-color="purple"]  { background: radial-gradient(ellipse 90% 70% at 15% 85%, rgba(107,70,255,0.3) 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 85% 15%, rgba(140,107,255,0.2) 0%, transparent 55%), #080410; }
+        [data-theme="dark"] .case-header[data-color="cyan"]    { background: radial-gradient(ellipse 85% 65% at 10% 90%, rgba(43,191,255,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 90% 10%, rgba(92,204,255,0.18) 0%, transparent 55%), #00090F; }
+        [data-theme="dark"] .case-header[data-color="magenta"] { background: radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,43,158,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,92,180,0.18) 0%, transparent 55%), #0E0008; }
+        [data-theme="dark"] .case-header[data-color="amber"]   { background: radial-gradient(ellipse 85% 65% at 15% 85%, rgba(255,184,43,0.28) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(255,200,92,0.18) 0%, transparent 55%), #0A0700; }
+        [data-theme="dark"] .case-header[data-color="violet"]  { background: radial-gradient(ellipse 85% 65% at 15% 85%, rgba(124,58,237,0.3) 0%, transparent 55%), radial-gradient(ellipse 75% 75% at 85% 15%, rgba(167,139,250,0.2) 0%, transparent 55%), #040010; }
+        /* High-contrast variants */
+        [data-theme="high-contrast"] .case-header[data-color="orange"]  { background: #000; outline: 3px solid #FF6B2B; }
+        [data-theme="high-contrast"] .case-header[data-color="purple"]  { background: #000; outline: 3px solid #6B46FF; }
+        [data-theme="high-contrast"] .case-header[data-color="cyan"]    { background: #000; outline: 3px solid #2BBFFF; }
+        [data-theme="high-contrast"] .case-header[data-color="magenta"] { background: #000; outline: 3px solid #FF2E93; }
+        [data-theme="high-contrast"] .case-header[data-color="amber"]   { background: #000; outline: 3px solid #FFD700; }
+        [data-theme="high-contrast"] .case-header[data-color="violet"]  { background: #000; outline: 3px solid #9E70FF; }
+        /* Case card thumbnail image */
+        .case-header picture { display: contents; }
+        .case-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
+        .case-header__thumb {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            border-radius: 0;
+            z-index: 0;
+        }
+        
+        .case-content {
+            padding: var(--space-md);
+            display: inline-block;
+            flex: 1;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .case-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(26, 26, 26, 0.85);
+            color: #FFFFFF;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+            transition: all var(--transition-base);
+        }
+
+        [data-theme="dark"] .case-tag {
+            background: rgba(255, 255, 255, 0.12);
+            color: #F5F5F5;
+        }
+
+        /* Glass effect on hover in cards */
+        .case-card:hover .case-tag {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .case-card:hover .case-tag {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .case-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--color-text-primary);
+        }
+
+        .case-description {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+
+        .case-meta-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: var(--space-md);
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+            line-height: 1.4;
+        }
+        .case-meta-block strong { color: var(--color-text-secondary); font-weight: 600; }
+
+        .case-stats {
+            display: flex;
+            gap: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .stat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat strong {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-accent);
+            transition: color var(--motion-medium);
+        }
+
+        .stat span {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color var(--motion-medium);
+        }
+        .case-card:hover .case-title { color: #FFFFFF; }
+        .case-card:focus-visible .case-title { color: #FFFFFF; }
+        .case-card:hover .case-description { color: rgba(255, 255, 255, 0.82); }
+        .case-card:focus-visible .case-description { color: rgba(255, 255, 255, 0.82); }
+        .case-card:hover .case-meta-block { color: rgba(255, 255, 255, 0.72); }
+        .case-card:hover .case-meta-block strong { color: #FFFFFF; }
+        .case-card:hover .case-stats { border-top-color: rgba(255, 255, 255, 0.18); }
+        .case-card:focus-visible .case-stats { border-top-color: rgba(255, 255, 255, 0.18); }
+        .case-card:hover .stat strong { color: #FFFFFF; }
+        .case-card:focus-visible .stat strong { color: #FFFFFF; }
+        .case-card:hover .stat span { color: rgba(255, 255, 255, 0.65); }
+        .case-card:focus-visible .stat span { color: rgba(255, 255, 255, 0.65); }
+        [data-theme="dark"] .case-card:hover .stat strong { color: #fff; }
+        [data-theme="dark"] .case-card:hover .stat span { color: rgba(255,255,255,0.75); }
+        [data-theme="high-contrast"] .case-card:hover .stat strong { color: #FFD700; }
+        [data-theme="high-contrast"] .case-card:hover .stat span { color: rgba(255,255,255,0.9); }
+        [data-theme="dark"] .case-card:hover .case-description { color: rgba(255,255,255,0.9); }
+        [data-theme="dark"] .case-card:hover .case-meta-block { color: rgba(255,255,255,0.65); }
+        [data-theme="dark"] .case-card:hover .case-meta-block strong { color: rgba(255,255,255,0.85); }
+        [data-theme="high-contrast"] .case-card:hover .case-description { color: #fff; }
+        [data-theme="high-contrast"] .case-card:hover .case-title { color: #FFD700; }
+        [data-theme="high-contrast"] .case-card:hover .case-meta-block { color: rgba(255,255,255,0.8); }
+        [data-theme="high-contrast"] .case-card:hover .case-meta-block strong { color: #fff; }
+
+
+        /* Playing Around Section */
+        .playing-section {
+            margin-top: var(--space-xl);
+        }
+
+        .playing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            column-gap: var(--space-md);
+            row-gap: var(--space-lg);
+        }
+
+        @media (max-width: 1100px) {
+            .playing-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                column-gap: var(--space-sm);
+                row-gap: var(--space-md);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .playing-grid {
+                grid-template-columns: 1fr;
+                column-gap: var(--space-xs);
+                row-gap: var(--space-md);
+            }
+        }
+
+        .playing-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: var(--space-md);
+            transition: all var(--transition-fast);
+        }
+
+        .playing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .playing-card__icon {
+            font-size: 32px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .playing-card__title {
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            font-size: 16px;
+        }
+
+        .playing-card__description {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+        .playing-card--highlight { border-color: var(--color-accent); box-shadow: 0 12px 32px rgba(255,107,43,0.15); transform: translateY(-2px); }
+        .playing-card--highlight:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(255,107,43,0.25); }
+ 
+        /* ─── About ─── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+        .about-image {
+            position: relative;
+            width: min(560px, 100%);
+            aspect-ratio: 0.9 / 1;
+            margin: 0 auto;
+            padding: 0;
+        }
+        .about-image__bg {
+            position: absolute;
+            inset: 6% 8% 4% 4%;
+            border-radius: 34px;
+            transform: rotate(5deg);
+            transform-origin: 50% 50%;
+            background:
+                radial-gradient(circle at 24% 22%, rgba(255,255,255,0.14), transparent 30%),
+                linear-gradient(135deg, #ff8150 0%, #ec68aa 54%, #7f5cf4 100%);
+            box-shadow: 0 22px 48px rgba(17, 17, 17, 0.13);
+        }
+        .about-image__photo {
+            position: absolute;
+            z-index: 1;
+            inset: 0 4% 6% 8%;
+            display: block;
+            overflow: hidden;
+            border-radius: 34px;
+            transform: rotate(5deg);
+            transform-origin: 50% 50%;
+            box-shadow: 0 26px 60px rgba(17, 17, 17, 0.16);
+        }
+        .about-image__photo::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(152, 16, 250, 0.14);
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+        .about-image__photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 14%;
+            display: block;
+            filter: grayscale(1) contrast(1.02) brightness(1.03);
+        }
+        [data-theme="dark"] .about-image__bg {
+            box-shadow: 0 28px 72px rgba(0, 0, 0, 0.34);
+        }
+        [data-theme="dark"] .about-image__photo {
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+        }
+        @media (max-width: 768px) {
+            .about-image {
+                max-width: 420px;
+                aspect-ratio: 0.95 / 1;
+                margin-top: var(--space-md);
+            }
+            .about-image__bg {
+                inset: 6% 8% 4% 4%;
+                border-radius: 28px;
+                transform: rotate(3deg);
+                transform-origin: 50% 50%;
+            }
+            .about-image__photo {
+                inset: 0 4% 6% 8%;
+                border-radius: 28px;
+                transform: rotate(3deg);
+                transform-origin: 50% 50%;
+            }
+        }
+        .about-photo__gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255,107,43,0.3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            column-gap: var(--space-md);
+            row-gap: var(--space-lg);
+        }
+
+        @media (max-width: 900px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                column-gap: var(--space-xs);
+                row-gap: var(--space-md);
+            }
+        }
+
+        .skill-category {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: var(--space-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-accent);
+        }
+
+        .skill-category__icon {
+            font-size: 40px;
+            margin-bottom: var(--space-md);
+        }
+
+        .skill-category__title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .skill-category__description {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .skill-category__list {
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .skill-category__list li {
+            padding: 8px 0;
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .skill-category__list li::before {
+            content: '\2192';
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            margin-top: var(--space-2xl);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: var(--space-md);
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base), border-color var(--transition-base);
+        }
+
+        [data-theme="dark"] .tool-item {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+        [data-theme="high-contrast"] .tool-item { background: #1a1a1a; border: 2px solid #666; color: #FFF; }
+
+        .tool-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+            border-color: var(--color-accent);
+            background: radial-gradient(circle at top left, rgba(255, 107, 43, 0.12), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(107, 70, 255, 0.25), transparent 55%);
+        }
+
+        /* Circular logo container */
+        .tool-icon {
+            flex: 0 0 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.6), transparent 55%),
+                        linear-gradient(135deg, #FF6B2B, #6B46FF);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #FFFFFF;
+            box-shadow: 0 6px 14px rgba(15, 23, 42, 0.25);
+        }
+
+        /* Example per-tool accents */
+        .tool-item[data-tool="figma"] .tool-icon {
+            background: conic-gradient(from 180deg, #0ACF83, #A259FF, #F24E1E, #FF7262, #1ABCFE, #0ACF83);
+        }
+
+        .tool-item[data-tool="framer"] .tool-icon {
+            background: linear-gradient(135deg, #0055FF, #00E0FF);
+        }
+
+        .tool-item[data-tool="supernova"] .tool-icon {
+            background: linear-gradient(135deg, #FF8C5C, #FF2E93);
+        }
+
+        .tool-item[data-tool="arc"] .tool-icon {
+            background: radial-gradient(circle at 10% 0, #FFF, transparent 50%),
+                        linear-gradient(135deg, #000428, #004e92);
+        }
+
+        .tool-item[data-tool="notion"] .tool-icon {
+            background: linear-gradient(135deg, #111827, #4B5563);
+        }
+
+        .tool-item[data-tool="miro"] .tool-icon {
+            background: linear-gradient(135deg, #FFDB15, #F97316);
+        }
+
+        .tool-item[data-tool="github"] .tool-icon {
+            background: radial-gradient(circle at 30% 20%, #F9FAFB, transparent 50%),
+                        linear-gradient(135deg, #111827, #111827);
+        }
+
+        .tool-item[data-tool="jira"] .tool-icon {
+            background: linear-gradient(135deg, #0052CC, #2684FF);
+        }
+
+        .tool-item[data-tool="figjam"] .tool-icon {
+            background: conic-gradient(from 0deg, #A855F7, #EC4899, #F97316, #22C55E, #3B82F6, #A855F7);
+        }
+
+        .tool-item[data-tool="visualstudio"] .tool-icon {
+            background: linear-gradient(135deg, #2563EB, #FBBF24);
+        }
+
+        .tool-item[data-tool="chatgpt"] .tool-icon {
+            background: conic-gradient(from 0deg, #10B981, #22C55E, #059669, #0F766E, #10B981);
+        }
+
+        .tool-item[data-tool="claude"] .tool-icon {
+            background: linear-gradient(135deg, #4C1D95, #F59E0B);
+        }
+
+        /* Tiny glyphs inside the circle */
+        .tool-item[data-tool="figma"] .tool-icon::before { content: "Fi"; }
+        .tool-item[data-tool="framer"] .tool-icon::before { content: "Fr"; }
+        .tool-item[data-tool="supernova"] .tool-icon::before { content: "S"; }
+        .tool-item[data-tool="arc"] .tool-icon::before { content: "Ar"; }
+        .tool-item[data-tool="notion"] .tool-icon::before { content: "N"; }
+        .tool-item[data-tool="miro"] .tool-icon::before { content: "M"; }
+        .tool-item[data-tool="github"] .tool-icon::before { content: "GH"; font-size: 12px; }
+        .tool-item[data-tool="jira"] .tool-icon::before { content: "Ji"; }
+        .tool-item[data-tool="figjam"] .tool-icon::before { content: "FJ"; font-size: 11px; }
+        .tool-item[data-tool="visualstudio"] .tool-icon::before { content: "VS"; }
+        .tool-item[data-tool="chatgpt"] .tool-icon::before { content: "AI"; font-size: 11px; }
+        .tool-item[data-tool="claude"] .tool-icon::before { content: "Cl"; }
+
+        /* Responsive layout for tools */
+        @media (max-width: 1100px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: var(--space-sm);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tools-grid {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: var(--space-md);
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: rgba(255, 107, 43, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 43, 0.15);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-accent);
+            transition: all var(--transition-fast);
+        }
+
+        .tag:hover {
+            background: rgba(255, 107, 43, 0.15);
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        /* Resume Section */
+        .resume {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: var(--space-xl);
+        }
+        .resume-subheading {
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        .resume-subheading--spaced {
+            margin: var(--space-lg) 0 var(--space-md);
+        }
+        .resume-summary {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.7;
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .experience-item {
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .experience-header {
+            margin-bottom: var(--space-sm);
+        }
+
+        .experience-title {
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .experience-company {
+            color: var(--color-text-secondary);
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+        }
+
+        .experience-achievements {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .experience-achievements li {
+            padding: 8px 0;
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .experience-achievements li::before {
+            content: '\2192';
+            color: var(--color-accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        @media (max-width: 768px) {
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .education-item {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: var(--space-md);
+        }
+
+        .education-degree {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .education-school {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .education-year {
+            color: var(--color-text-tertiary);
+            font-size: 12px;
+        }
+        .education-detail {
+            font-size: 14px;
+            color: var(--color-text-tertiary);
+            margin-top: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, rgba(255, 107, 43, 0.08) 0%, rgba(107, 70, 255, 0.08) 100%);
+            padding: var(--space-2xl) var(--space-lg);
+            text-align: center;
+        }
+
+        .footer__content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .footer__title {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin-bottom: var(--space-md);
+        }
+
+        .footer__subtitle {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer__links {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer__copyright {
+            font-size: 14px;
+            color: var(--color-text-tertiary);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Accessibility Badge */
+        .accessibility-badge { position: relative; display: inline-block; margin: var(--space-lg) 0 var(--space-md); }
+        .badge-content { display: flex; align-items: center; gap: var(--space-xs); padding: 10px 20px; background: rgba(255,255,255,0.9); border: 2px solid var(--color-accent); border-radius: 999px; cursor: default; font-family: var(--font-body); color: #1A1A1A; transition: all var(--motion-medium); }
+        [data-theme="dark"] .badge-content { background: rgba(26,26,26,0.9); color: #F5F5F5; }
+        [data-theme="high-contrast"] .badge-content { background: #000; color: #FFFFFF; }
+        .badge-content:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,107,43,0.3); }
+        .badge-icon { font-size: 20px; line-height: 1; }
+        .badge-label { font-size: 14px; font-weight: 600; }
+        .badge-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px); left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 13px; line-height: 1.6;
+            color: var(--color-text-secondary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            opacity: 0; visibility: hidden;
+            transition: all var(--motion-medium);
+            pointer-events: none; z-index: 100;
+        }
+        .badge-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid var(--color-bg-secondary); }
+        .accessibility-badge:hover .badge-tooltip,
+        .badge-content:focus-visible + .badge-tooltip,
+        .badge-content:focus + .badge-tooltip { opacity: 1; visibility: visible; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 100px var(--space-md) var(--space-xl);
+            }
+
+            .section {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .hero__cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer__links {
+                flex-direction: column;
+            }
+
+            .case-stats {
+                flex-direction: column;
+            }
+            .resume-header { flex-direction: column; align-items: flex-start; }
+        }
+
+        .case-card:nth-child(1)  { animation-delay: 0.05s; }
+        .case-card:nth-child(2)  { animation-delay: 0.12s; }
+        .case-card:nth-child(3)  { animation-delay: 0.19s; }
+        .case-card:nth-child(4)  { animation-delay: 0.26s; }
+        .case-card:nth-child(5)  { animation-delay: 0.33s; }
+        .case-card:nth-child(6)  { animation-delay: 0.40s; }
+        .case-card:nth-child(7)  { animation-delay: 0.47s; }
+
+        /* Respect reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            .case-card { animation: none; opacity: 1; }
+        }
+
+        /* ── Card CTA footer ── */
+        .card-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px var(--space-md) var(--space-md);
+            border-top: 1px solid var(--color-border);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 0.03em;
+            transition: color 300ms ease, border-top-color 300ms ease;
+            margin-top: auto;
+        }
+        .card-cta-arrow {
+            display: inline-block;
+            transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 16px;
+        }
+        .case-card:hover .card-cta {
+            color: #FFFFFF;
+            border-top-color: rgba(255, 255, 255, 0.18);
+        }
+        .case-card:focus-visible .card-cta {
+            color: #FFFFFF;
+            border-top-color: rgba(255, 255, 255, 0.18);
+        }
+        .case-card:hover .card-cta-arrow { transform: translateX(5px); }
+        .case-card:focus-visible .card-cta-arrow { transform: translateX(5px); }
+        [data-theme="dark"] .card-cta {
+            color: var(--color-accent);
+        }
+        [data-theme="high-contrast"] .card-cta {
+            color: #FFD700;
+        }
+        [data-theme="high-contrast"] .case-card:hover .card-cta {
+            color: #FFD700;
+        }
+
+        /* ── Index scroll-reveal & hero motion ── */
+        @media (prefers-reduced-motion: no-preference) {
+            .hero__eyebrow  { animation: fadeInUp 0.5s 0.05s cubic-bezier(.16,1,.3,1) both; }
+            .hero__title    { animation: fadeInUp 0.6s 0.12s cubic-bezier(.16,1,.3,1) both; }
+            .hero__subtitle { animation: fadeInUp 0.6s 0.22s cubic-bezier(.16,1,.3,1) both; }
+            .hero__cta      { animation: fadeInUp 0.6s 0.32s cubic-bezier(.16,1,.3,1) both; }
+            .section-header { opacity: 0; transform: translateY(18px); transition: opacity 0.55s cubic-bezier(.16,1,.3,1), transform 0.55s cubic-bezier(.16,1,.3,1); }
+            .section-header.visible { opacity: 1; transform: none; }
+            .skill-category, .playing-card, .experience-item, .education-item {
+                opacity: 0; transform: translateY(16px);
+                transition: opacity 0.45s cubic-bezier(.16,1,.3,1), transform 0.45s cubic-bezier(.16,1,.3,1);
+            }
+            .skill-category.visible, .playing-card.visible, .experience-item.visible, .education-item.visible {
+                opacity: 1; transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<!-- Header -->
+<header class="header">
+<div class="header__container">
+<a aria-label="Rebecca Havens Gore — portfolio home" class="header__logo" href="#main-content">
+<svg aria-label="Rebecca Havens Gore logomark" class="header__logo-mark" fill="none" focusable="false" height="32" role="img" viewbox="0 0 44 44" width="32" xmlns="http://www.w3.org/2000/svg">
+<rect fill="currentColor" height="3" width="13" x="4" y="4"></rect>
+<rect fill="currentColor" height="13" width="3" x="4" y="4"></rect>
+<rect fill="currentColor" height="3" width="13" x="27" y="4"></rect>
+<rect fill="currentColor" height="13" width="3" x="37" y="4"></rect>
+<rect fill="currentColor" height="3" width="13" x="4" y="37"></rect>
+<rect fill="currentColor" height="13" width="3" x="4" y="27"></rect>
+<rect fill="currentColor" height="3" width="13" x="27" y="37"></rect>
+<rect fill="currentColor" height="13" width="3" x="37" y="27"></rect>
+<rect fill="#FF6B2B" height="7" transform="rotate(45 22 22)" width="7" x="18.5" y="18.5"></rect>
+</svg>
+<span class="header__logo-text">Rebecca Havens Gore</span>
+</a>
+<!-- Desktop Navigation -->
+<nav aria-label="Primary" class="header__nav">
+<ul class="nav__links">
+<li><a class="nav__link" href="#about">About</a></li>
+<li><a class="nav__link" href="#work">Work</a></li>
+<li><a class="nav__link" href="#skills">Skills</a></li>
+<li><a class="nav__link" href="#resume">Resume</a></li>
+<li><a class="nav__link" href="#contact">Contact</a></li>
+</ul>
+<div aria-label="Color theme" class="theme-controls" role="group">
+<button aria-pressed="false" class="theme-btn" data-theme="auto" type="button"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" r="3.5"></circle><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4"></path></svg> Auto</button>
+<button aria-pressed="false" class="theme-btn" data-theme="light" type="button"><svg aria-hidden="true" fill="none" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" fill="currentColor" r="3"></circle><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.22 3.22l1.42 1.42M11.36 11.36l1.42 1.42M3.22 12.78l1.42-1.42M11.36 4.64l1.42-1.42" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg> Light</button>
+<button aria-pressed="false" class="theme-btn" data-theme="dark" type="button"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 16 16" width="15"><path d="M6 2a6 6 0 1 0 8 8 4.5 4.5 0 0 1-8-8z"></path></svg> Dark</button>
+<button aria-pressed="false" class="theme-btn" data-theme="high-contrast" type="button"><svg aria-hidden="true" fill="none" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"></circle><circle cx="8" cy="8" fill="currentColor" r="3"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="8" x2="8" y1="1.5" y2="4.5"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="8" x2="8" y1="11.5" y2="14.5"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="1.5" x2="4.5" y1="8" y2="8"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="11.5" x2="14.5" y1="8" y2="8"></line></svg> Contrast</button>
+</div>
+<div class="theme-dropdown">
+<button aria-controls="theme-dropdown-menu" aria-expanded="false" aria-haspopup="true" class="theme-dropdown-button" type="button">
+<span class="theme-dropdown-button__content">
+<span aria-hidden="true" class="theme-dropdown-current-icon"></span>
+<span class="theme-dropdown-label">Auto</span>
+</span>
+<svg aria-hidden="true" class="theme-dropdown-caret" fill="none" height="15" viewbox="0 0 16 16" width="15"><path d="M4 6.5 8 10.5 12 6.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</button>
+<div aria-label="Color theme options" class="theme-dropdown-menu" id="theme-dropdown-menu" role="menu">
+<button class="theme-dropdown-item" data-theme="auto" role="menuitem" type="button"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" r="3.5"></circle><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4"></path></svg><span>Auto</span></button>
+<button class="theme-dropdown-item" data-theme="light" role="menuitem" type="button"><svg aria-hidden="true" fill="none" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" fill="currentColor" r="3"></circle><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.22 3.22l1.42 1.42M11.36 11.36l1.42 1.42M3.22 12.78l1.42-1.42M11.36 4.64l1.42-1.42" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg><span>Light</span></button>
+<button class="theme-dropdown-item" data-theme="dark" role="menuitem" type="button"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 16 16" width="15"><path d="M6 2a6 6 0 1 0 8 8 4.5 4.5 0 0 1-8-8z"></path></svg><span>Dark</span></button>
+<button class="theme-dropdown-item" data-theme="high-contrast" role="menuitem" type="button"><svg aria-hidden="true" fill="none" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"></circle><circle cx="8" cy="8" fill="currentColor" r="3"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="8" x2="8" y1="1.5" y2="4.5"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="8" x2="8" y1="11.5" y2="14.5"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="1.5" x2="4.5" y1="8" y2="8"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="11.5" x2="14.5" y1="8" y2="8"></line></svg><span>Contrast</span></button>
+</div>
+</div>
+</nav>
+<!-- Mobile Hamburger -->
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="hamburger" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</header>
+<!-- Mobile Navigation Overlay -->
+<div aria-hidden="true" class="nav-overlay" hidden=""></div>
+<nav aria-hidden="true" aria-label="Mobile" class="nav-menu" hidden="" id="mobile-menu">
+<ul class="nav__links">
+<li><a class="nav__link" href="#about">About</a></li>
+<li><a class="nav__link" href="#work">Work</a></li>
+<li><a class="nav__link" href="#skills">Skills</a></li>
+<li><a class="nav__link" href="#resume">Resume</a></li>
+<li><a class="nav__link" href="#contact">Contact</a></li>
+</ul>
+<div aria-label="Color theme" class="theme-controls" role="group">
+<button aria-pressed="false" class="theme-btn" data-theme="auto" type="button"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" r="3.5"></circle><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4"></path></svg> Auto</button>
+<button aria-pressed="false" class="theme-btn" data-theme="light" type="button"><svg aria-hidden="true" fill="none" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" fill="currentColor" r="3"></circle><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.22 3.22l1.42 1.42M11.36 11.36l1.42 1.42M3.22 12.78l1.42-1.42M11.36 4.64l1.42-1.42" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path></svg> Light</button>
+<button aria-pressed="false" class="theme-btn" data-theme="dark" type="button"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 16 16" width="15"><path d="M6 2a6 6 0 1 0 8 8 4.5 4.5 0 0 1-8-8z"></path></svg> Dark</button>
+<button aria-pressed="false" class="theme-btn" data-theme="high-contrast" type="button"><svg aria-hidden="true" fill="none" height="15" viewbox="0 0 16 16" width="15"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"></circle><circle cx="8" cy="8" fill="currentColor" r="3"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="8" x2="8" y1="1.5" y2="4.5"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="8" x2="8" y1="11.5" y2="14.5"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="1.5" x2="4.5" y1="8" y2="8"></line><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="11.5" x2="14.5" y1="8" y2="8"></line></svg> Contrast</button>
+</div>
+</nav>
+<main id="main-content" tabindex="-1">
+<!-- Hero -->
+<section class="hero">
+<div class="hero__container">
+<p class="hero__eyebrow">Design Systems Lead &amp; Principal Product Designer</p>
+<h1 class="hero__title">Turning complex platform and security workflows into clear action</h1>
+<p class="hero__subtitle">10+ years designing developer tools, data visualization systems, AI-assisted workflows, and platform experiences for technical audiences in high-stakes, data-dense environments.</p>
+<div class="hero__cta">
+<a class="btn btn-primary" href="#work">View My Work</a>
+<a class="btn btn-secondary" href="#contact">Get In Touch</a>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section aria-labelledby="about-title" class="section section--secondary" id="about">
+<div class="container">
+<div class="section-header">
+<p class="section-eyebrow">About Me</p>
+<h2 class="section-title">Designing coherent product systems for technical teams at scale</h2>
+</div>
+<div class="about-grid">
+<div class="section-intro">
+<p>
+                        I'm a Principal Product Designer specializing in developer-adjacent platforms, security workflows, and scalable design systems. For over a decade I've designed products for security engineers, SOC analysts, IT practitioners, and platform teams — users who think in systems, work across fragmented tools, and need fast paths from signal to investigation to action.
+                    </p>
+<p>
+                        My work spans four design systems across Rapid7, AlphaWave, and Kronologic, where I've led MUI migrations, built visualization frameworks, established governance models, and pioneered AI experience standards. I believe great design systems are more than component libraries — they're shared languages that unite design and engineering around a common vision.
+                    </p>
+<p>
+                        When I'm not designing platform experiences, I'm mentoring designers, building Figma plugins, or experimenting with AI tooling. I bring deep technical empathy, systems architecture thinking, and a bias toward measurable clarity into every problem I work on.
+                    </p>
+</div>
+<div class="about-image">
+<div aria-hidden="true" class="about-image__bg"></div>
+<picture class="about-image__photo">
+<source sizes="(max-width: 768px) calc(100vw - 64px), 560px" srcset="
+                                    assets/images/profile/becca-headshot-color-square@3x-128w.avif 128w,
+                                    assets/images/profile/becca-headshot-color-square@3x-256w.avif 256w,
+                                    assets/images/profile/becca-headshot-color-square@3x-384w.avif 384w,
+                                    assets/images/profile/becca-headshot-color-square@3x-512w.avif 512w,
+                                    assets/images/profile/becca-headshot-color-square@3x-768w.avif 768w,
+                                    assets/images/profile/becca-headshot-color-square@3x-1024w.avif 1024w,
+                                    assets/images/profile/becca-headshot-color-square@3x-1536w.avif 1536w
+                                " type="image/avif"/>
+<source sizes="(max-width: 768px) calc(100vw - 64px), 560px" srcset="
+                                    assets/images/profile/becca-headshot-color-square@3x-128w.webp 128w,
+                                    assets/images/profile/becca-headshot-color-square@3x-256w.webp 256w,
+                                    assets/images/profile/becca-headshot-color-square@3x-384w.webp 384w,
+                                    assets/images/profile/becca-headshot-color-square@3x-512w.webp 512w,
+                                    assets/images/profile/becca-headshot-color-square@3x-768w.webp 768w,
+                                    assets/images/profile/becca-headshot-color-square@3x-1024w.webp 1024w,
+                                    assets/images/profile/becca-headshot-color-square@3x-1536w.webp 1536w
+                                " type="image/webp"/>
+<img alt="Rebecca Havens Gore" decoding="async" height="768" loading="lazy" sizes="(max-width: 768px) calc(100vw - 64px), 560px" src="assets/images/profile/becca-headshot-color-square@3x-768w.png" srcset="
+                                    assets/images/profile/becca-headshot-color-square@3x-128w.png 128w,
+                                    assets/images/profile/becca-headshot-color-square@3x-256w.png 256w,
+                                    assets/images/profile/becca-headshot-color-square@3x-384w.png 384w,
+                                    assets/images/profile/becca-headshot-color-square@3x-512w.png 512w,
+                                    assets/images/profile/becca-headshot-color-square@3x-768w.png 768w,
+                                    assets/images/profile/becca-headshot-color-square@3x-1024w.png 1024w,
+                                    assets/images/profile/becca-headshot-color-square@3x-1536w.png 1536w
+                                " width="768"/>
+</picture>
+</div>
+</div>
+</div>
+
+
+</section>
+<!-- Work Section -->
+<section class="section" id="work">
+<div class="container">
+<div class="section-header">
+<p class="section-eyebrow">Selected Work</p>
+<h2 class="section-title">Platform systems, DevSecOps-adjacent workflows, and observability design</h2>
+</div>
+<div class="work-grid"><a aria-label="View case study: Data Visualization and Observability Platform" class="case-card" href="case-study-dvs.html">
+<div class="case-header" data-color="purple"><img alt="Data Visualization System" src="assets/images/case-studies/dvs/dvs-card-header-600w.avif" srcset="assets/images/case-studies/dvs/dvs-card-header-600w.avif 600w, assets/images/case-studies/dvs/dvs-card-header-900w.avif 900w, assets/images/case-studies/dvs/dvs-card-header-1200w.avif 1200w" style="width: 100%; height: 100%; object-fit: cover;"/></div>
+<div class="case-content">
+<span class="case-tag">Observability &amp; Telemetry</span>
+<h3 class="case-title">Data Visualization &amp; Observability Platform</h3>
+<p class="case-description">Unified telemetry visualization for security engineers — transforming fragmented signal data into time-to-insight workflows with drill-in investigation, anomaly surfacing, and cross-product dashboard coherence.</p>
+<div class="case-stats">
+<div class="stat"><strong>~30%</strong><span>Faster Investigation</span></div>
+<div class="stat"><strong>70%</strong><span>Consistency Gain</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a><a aria-label="View case study: Alert Triage and Investigation" class="case-card" href="case-study-alerts.html">
+<div class="case-header" data-color="magenta">
+<picture>
+<img alt="Preview screenshot of the redesigned alert triage interface showing modular investigation panels and streamlined workflow." sizes="(max-width: 600px) 600px, (max-width: 900px) 900px, 1200px" src="assets/images/case-studies/alerts/alerts-card-header-900w.avif" srcset="assets/images/case-studies/alerts/alerts-card-header-600w.avif 600w, assets/images/case-studies/alerts/alerts-card-header-900w.avif 900w, assets/images/case-studies/alerts/alerts-card-header-1200w.avif 1200w">
+</img></picture>
+</div>
+<div class="case-content">
+<span class="case-tag">Observability &amp; Alert Triage</span>
+<h3 class="case-title">Alert Triage &amp; Investigation</h3>
+<p class="case-description">Redesigned high-volume alert triage into a fast, modular investigation workflow — optimizing time-to-first-action, progressive disclosure, and consistent drill paths under real performance constraints.</p>
+<div class="case-stats">
+<div class="stat"><strong>1,700%</strong><span>Faster Assessment</span></div>
+<div class="stat"><strong>85%</strong><span>Effort Reduction</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a><a aria-label="View case study: Unified Platform Experience" class="case-card" href="case-study-unified.html">
+<div class="case-header" data-color="orange">
+<picture>
+<img alt="Preview screenshot of unified platform interactions showing standardized DataGrid, filtering, and navigation patterns." sizes="(max-width: 600px) 600px, (max-width: 900px) 900px, 1200px" src="assets/images/case-studies/platform/plat-card-header-900w.avif" srcset="assets/images/case-studies/platform/plat-card-header-600w.avif 600w, assets/images/case-studies/platform/plat-card-header-900w.avif 900w, assets/images/case-studies/platform/plat-card-header-1200w.avif 1200w"/>
+</picture>
+</div>
+<div class="case-content">
+<span class="case-tag">Cross-Surface Coherence</span>
+<h3 class="case-title">Unified Platform Experience</h3>
+<p class="case-description">Standardized filtering, DataGrid interactions, and drill-in patterns across six products — giving technical users one coherent mental model for 85% of their daily platform actions.</p>
+<div class="case-stats">
+<div class="stat"><strong>+28%</strong><span>Task Success</span></div>
+<div class="stat"><strong>+50%</strong><span>UX Consistency</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a><a aria-label="View case study: R7 Design System and Platform Foundation" class="case-card" href="case-study-rds.html">
+<div class="case-header" data-color="orange">
+<picture>
+<img alt="Preview screenshot of the R7 Design System showing unified components and platform foundation." sizes="(max-width: 600px) 600px, (max-width: 900px) 900px, 1200px" src="assets/images/case-studies/rds/rds-card-header-900w.avif" srcset="assets/images/case-studies/rds/rds-card-header-600w.avif 600w, assets/images/case-studies/rds/rds-card-header-900w.avif 900w, assets/images/case-studies/rds/rds-card-header-1200w.avif 1200w"/>
+</picture>
+</div>
+<div class="case-content">
+<span class="case-tag">Platform Foundation &amp; Design Systems</span>
+<h3 class="case-title">R7 Design System &amp; Platform Foundation</h3>
+<p class="case-description">Built the component, token, and template foundation that let six product teams ship coherently at speed — from 17+ fragmented variants to one scalable, engineer-ready system with automated Figma–code parity.</p>
+<div class="case-stats">
+<div class="stat"><strong>40%</strong><span>Faster Builds</span></div>
+<div class="stat"><strong>80%</strong><span>Adoption</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a><a aria-label="View case study: AI Experience Standard" class="case-card" href="case-study-ai.html">
+<div class="case-header" data-color="amber">
+<picture>
+<img alt="Preview screenshot of the AI Experience Standard interface showing AI attribution badges and confidence indicators." sizes="(max-width: 600px) 600px, (max-width: 900px) 900px, 1200px" src="assets/images/case-studies/ai/ai-card-header-900w.avif" srcset="assets/images/case-studies/ai/ai-card-header-600w.avif 600w, assets/images/case-studies/ai/ai-card-header-900w.avif 900w, assets/images/case-studies/ai/ai-card-header-1200w.avif 1200w"/>
+</picture>
+</div>
+<div class="case-content">
+<span class="case-tag">AI-Augmented Workflows</span>
+<h3 class="case-title">AI Experience Standard</h3>
+<p class="case-description">12 AI-assisted investigation patterns — confidence surfacing, explainability, progressive disclosure — that help technical practitioners move from AI signal to informed action without added cognitive overhead.</p>
+<div class="case-stats">
+<div class="stat"><strong>12</strong><span>AI Patterns</span></div>
+<div class="stat"><strong>6</strong><span>Principles</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a><a aria-label="View case study: Design Governance and UX Standards" class="case-card" href="case-study-forum.html">
+<div class="case-header" data-color="cyan">
+<picture>
+<img alt="Preview screenshot of the Design Governance interface showing decision tracking and pattern standards." sizes="(max-width: 600px) 600px, (max-width: 900px) 900px, 1200px" src="assets/images/case-studies/governance/gov-card-header-900w.avif" srcset="assets/images/case-studies/governance/gov-card-header-600w.avif 600w, assets/images/case-studies/governance/gov-card-header-900w.avif 900w, assets/images/case-studies/governance/gov-card-header-1200w.avif 1200w"/>
+</picture>
+</div>
+<div class="case-content">
+<span class="case-tag">Platform Quality &amp; Governance</span>
+<h3 class="case-title">Design Governance &amp; UX Standards</h3>
+<p class="case-description">Replaced informal Slack-based pattern decisions with an evidence-driven governance model — ensuring platform quality scales with team growth rather than degrading as teams diverge.</p>
+<div class="case-stats">
+<div class="stat"><strong>35%</strong><span>Faster Approvals</span></div>
+<div class="stat"><strong>+40%</strong><span>A11y Compliance</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a><a aria-label="View case study: Scaling Design Maturity on Platform Teams" class="case-card" href="case-study-enablement.html">
+<div class="case-header" data-color="violet">
+<picture>
+<img alt="Preview screenshot of the Developer Enablement program showing onboarding and tooling resources." sizes="(max-width: 600px) 600px, (max-width: 900px) 900px, 1200px" src="assets/images/case-studies/enablement/enab-card-header-900w.avif" srcset="assets/images/case-studies/enablement/enab-card-header-600w.avif 600w, assets/images/case-studies/enablement/enab-card-header-900w.avif 900w, assets/images/case-studies/enablement/enab-card-header-1200w.avif 1200w"/>
+</picture>
+</div>
+<div class="case-content">
+<span class="case-tag">Design Maturity &amp; Mentorship</span>
+<h3 class="case-title">Scaling Design Maturity on Platform Teams</h3>
+<p class="case-description">Multi-year program that reduced onboarding 30–40%, grew platform-native systems thinking across 30+ designers, and pioneered an AI-assisted design education copilot powered by MCP.</p>
+<div class="case-stats">
+<div class="stat"><strong>30+</strong><span>Designers</span></div>
+<div class="stat"><strong>100+</strong><span>Sessions</span></div>
+</div>
+</div>
+<div class="card-cta"><span>View Case Study</span><span class="card-cta-arrow">→</span></div>
+</a></div>
+<!-- Playing Around Section -->
+<div class="playing-section">
+<h3 class="section-heading section-heading--tight">What I'm Playing With</h3>
+<p class="section-copy">Side projects and experiments that spark joy</p>
+<div class="playing-grid">
+<div class="playing-card">
+<div class="playing-card__icon">⚙️</div>
+<h4 class="playing-card__title">Figma Plugin Creation</h4>
+<p class="playing-card__description">I'm creating a Figma plugin to automatically generate dev-ready tables based on provided styles and data.</p>
+</div>
+<div class="playing-card">
+<div class="playing-card__icon">🎨</div>
+<h4 class="playing-card__title">Motion Design</h4>
+<p class="playing-card__description">I'm experimenting with animation and motion design in Framer.</p>
+</div>
+<div class="playing-card">
+<div class="playing-card__icon">🏰</div>
+<h4 class="playing-card__title">Playground Design</h4>
+<p class="playing-card__description">I've got big dreams of designing and building a backyard castle fort for my kids (and maybe myself).</p>
+</div>
+<div class="playing-card">
+<div class="playing-card__icon">🧙</div>
+<h4 class="playing-card__title">AI Magic</h4>
+<p class="playing-card__description">I explore how AI and emerging tools can accelerate prototyping, sharpen product thinking, and make complex ideas tangible faster.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="section" id="skills">
+<div class="container">
+<div class="section-header">
+<p class="section-eyebrow">Expertise</p>
+<h2 class="section-title">Skills &amp; Capabilities</h2>
+<p class="section-subtitle">The systems, practices, and tools I use to scale product quality</p>
+</div>
+<div class="skills-grid">
+<!-- Design Systems -->
+<div class="skill-category">
+<div class="skill-category__icon">⚡</div>
+<h3 class="skill-category__title">Design Systems &amp; Governance</h3>
+<p class="skill-category__description">I build and operationalize design systems that help platform teams ship faster with consistency, accessibility, and performance baked in.</p>
+<ul class="skill-category__list">
+<li>System foundations for platform UI: tokens, theming, layout, density, and motion</li>
+<li>Component patterns for data-heavy workflows (tables, filters, drill-ins, empty/error states)</li>
+<li>Figma ↔ code parity with clear contribution models (docs, QA rails, release notes)</li>
+<li>Governance that reduces drift: UX standards, review loops, and adoption measurement</li>
+</ul>
+</div>
+<!-- Design Strategy -->
+<div class="skill-category">
+<div class="skill-category__icon">🧭</div>
+<h3 class="skill-category__title">Platform Strategy &amp; Leadership</h3>
+<p class="skill-category__description">I align product, design, and engineering around durable UX primitives for platform workflows—so teams can scale without re-inventing core patterns.</p>
+<ul class="skill-category__list">
+<li>Define platform UX primitives for observability: signal → investigate → act (and where context lives)</li>
+<li>Drive alignment on data contracts + information architecture across teams and products</li>
+<li>Translate research + telemetry into prioritized roadmaps and phased delivery plans</li>
+<li>Facilitate cross-functional working sessions to resolve tradeoffs (speed vs depth, flexibility vs consistency)</li>
+</ul>
+</div>
+<!-- Platform & Product Design -->
+<div class="skill-category">
+<div class="skill-category__icon">🛠️</div>
+<h3 class="skill-category__title">Observability &amp; Developer Platform UX</h3>
+<p class="skill-category__description">I design investigation-first experiences for technical users—turning high-volume telemetry into fast decisions with clear drill paths and trustworthy system feedback.</p>
+<p class="skill-category__description">Example: Shipped triage + investigation patterns that reduced time-to-first-action and improved in-flow resolution.</p>
+<ul class="skill-category__list">
+<li>Observability surfaces: dashboards, alert triage, service health, anomalies — across logs, metrics, and traces</li>
+<li>Familiar with observability tooling ecosystems: Grafana, Splunk, Datadog</li>
+<li>Investigation UX: filters/querying, drill-in workflows, time context, correlation, comparison</li>
+<li>High-density visualization patterns: tables, sparklines, time-series exploration, dependency/context views</li>
+<li>Performance-aware UX: progressive disclosure, virtualization, caching strategies, resilient loading states</li>
+<li>Operational clarity: explainability, confidence cues, error prevention, and audit-friendly handoffs</li>
+</ul>
+</div>
+</div>
+<div class="tools-section">
+<h3 class="section-heading section-heading--loose">Tools I Reach For</h3>
+<div class="tools-grid">
+<div class="tool-item" data-tool="figma">
+<div class="tool-icon"></div>
+                        Figma
+                    </div>
+<div class="tool-item" data-tool="framer">
+<div class="tool-icon"></div>
+                        Framer
+                    </div>
+<div class="tool-item" data-tool="supernova">
+<div class="tool-icon"></div>
+                        Supernova
+                    </div>
+<div class="tool-item" data-tool="arc">
+<div class="tool-icon"></div>
+                        Arc Browser
+                    </div>
+<div class="tool-item" data-tool="notion">
+<div class="tool-icon"></div>
+                        Notion
+                    </div>
+<div class="tool-item" data-tool="miro">
+<div class="tool-icon"></div>
+                        Miro
+                    </div>
+<div class="tool-item" data-tool="github">
+<div class="tool-icon"></div>
+                        GitHub
+                    </div>
+<div class="tool-item" data-tool="jira">
+<div class="tool-icon"></div>
+                        Jira
+                    </div>
+<div class="tool-item" data-tool="figjam">
+<div class="tool-icon"></div>
+                        FigJam
+                    </div>
+<div class="tool-item" data-tool="visualstudio">
+<div class="tool-icon"></div>
+                        Visual Studio Code
+                    </div>
+<div class="tool-item" data-tool="chatgpt">
+<div class="tool-icon"></div>
+                        ChatGPT
+                    </div>
+<div class="tool-item" data-tool="claude">
+<div class="tool-icon"></div>
+                        Claude
+                    </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Resume Section -->
+<section class="section section--secondary" id="resume">
+<div class="container">
+<div class="section-header">
+<p class="section-eyebrow">Experience</p>
+<h2 class="section-title">Rebecca Havens Gore</h2>
+<p class="section-subtitle section-subtitle--spaced">Design Systems Lead • Principal Product Designer • UX &amp; AI Experience Architect</p>
+</div>
+<div class="resume">
+<div class="resume-header">
+<h3 class="resume-subheading">Summary</h3>
+<div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;align-items:center;">
+<a class="btn btn-secondary" download="" href="RebeccaHavensGore-Resume-DevSecOps-Platform.pdf" style="font-size:14px;padding:10px 20px;">⇩ Download PDF</a>
+</div>
+</div>
+<p class="resume-summary">Design Systems Lead • Principal Product Designer • UX &amp; AI Experience Architect with 10+ years of experience designing scalable design systems, platform UX frameworks, AI experience standards, and high-impact enterprise products. Proven success unifying multi-product experiences, accelerating engineering velocity, and mentoring teams into design maturity at Rapid7, AlphaWave, and Kronologic. I design and scale the systems that make enterprise products coherent, usable, and trustworthy. My work unifies design and engineering, shapes platform-wide experiences, and brings responsibility and clarity to AI UX.</p>
+<h3 class="resume-subheading resume-subheading--spaced">Professional Experience</h3>
+<div class="experience-item">
+<div class="experience-header">
+<div class="experience-title">Staff User Experience Designer - Portfolio Experience Enablement</div>
+<div class="experience-company">Rapid7 | April 2016 — Present</div>
+</div>
+<ul class="experience-achievements">
+<li>Led a Unified Platform Experience that standardized core investigation interactions (tables, filtering/querying, batch actions, navigation) across 6 products, improving cross-product consistency (+50%) and task success (+28%).</li>
+<li>Architected the Data Visualization System (DVS), a unified framework for telemetry views (dashboards, cards, drill-ins, reporting templates) powering analytics across the portfolio; reduced design time 60% and increased engagement 30%.</li>
+<li>Established an AI Experience Standard for responsible automation: UX patterns, trust/explainability models, and an AI permissions framework designed for high-stakes operational workflows.</li>
+<li>Created Design Forum + UX Standards governance, increasing accessibility compliance 40% and reducing design drift across teams and releases.</li>
+<li>Led the Rapid7 Design System (RDS) and MUI migration strategy, improving UI implementation speed 40%, reaching 80% adoption, and meeting WCAG 2.2 AA across the platform</li>
+<li>Mentored 30+ designers across the portfolio and built enablement programs (onboarding, curriculum, shared standards) to scale quality and consistency.</li>
+<li>Partnered with engineering on data contracts, performance constraints, and phased rollout plans to ship platform standards iteratively with measuable impact.</li>
+</ul>
+</div>
+<div class="experience-item">
+<div class="experience-header">
+<div class="experience-title">Lead UX Designer &amp; Design System Architect (Contract)</div>
+<div class="experience-company">AlphaWave | 2020 — 2021</div>
+</div>
+<ul class="experience-achievements">
+<li>Established AlphaWave's UX strategy and visual foundation from scratch, partnering with product/engineering to define core workflows and experience principles.</li>
+<li>Built the AlphaWave Design System (component architecture, styles, documentation) to enable consistent UI delivery and scalable product growth.</li>
+<li>Designed key data-heavy product surfaces (dashboards, asset intelligence, risk scoring, scanning, reporting) and led research/prototyping to support product-market fit.</li>
+<li>Recognition: Contributed to highly positive SC Labs review praised for design clarity and modern UX</li>
+</ul>
+</div>
+<div class="experience-item">
+<div class="experience-header">
+<div class="experience-title">Senior Product Designer / Design System Architect (Contract)</div>
+<div class="experience-company">Kronologic | 2019 — 2020</div>
+</div>
+<ul class="experience-achievements">
+<li>Introduced Ant Design (AntD) and rebuilt the UI foundation into a scalable system, standardizing patterns across the product.</li>
+<li>Led a full redesign of navigation + information architecture + dashboard structure, modernizing interaction design across core surfaces.</li>
+<li>Improved workflow clarity and usability while reducing engineering rework and strengthening enterprise customer credibility.</li>
+</ul>
+</div>
+<div class="experience-item">
+<div class="experience-header">
+<div class="experience-title">UX Designer</div>
+<div class="experience-company">Bypass Mobile | July 2013 — 2016</div>
+</div>
+<ul class="experience-achievements">
+<li>Designed mobile + tablet-first POS, ordering, and concessions experiences used at major stadiums/venues nationwide.</li>
+<li>Led UX for latency-sensitive, high-throughput workflows (transactions, inventory, staff ops, analytics) in collaboration with product and engineering.</li>
+<li>Shipped features for payments, QR ordering, and real-time sales tracking supporting thousands of concurrent users, plus reusable UI components to speed delivery.</li>
+</ul>
+</div>
+<h3 class="resume-subheading resume-subheading--spaced">Education</h3>
+<div class="education-grid">
+<div class="education-item">
+<div class="education-degree">MS in Information Studies (MSIS)</div>
+<div class="education-school">University of Texas at Austin</div>
+<div class="education-year">2011—2013</div>
+<div class="education-detail">Information Architecture, Retrieval, Visualization</div>
+</div>
+<div class="education-item">
+<div class="education-degree">MA in History</div>
+<div class="education-school">University of Texas at Austin</div>
+<div class="education-year">2007—2011</div>
+<div class="education-detail">History of Medicine and Religion</div>
+</div>
+<div class="education-item">
+<div class="education-degree">BA in Medieval &amp; Renaissance Studies</div>
+<div class="education-school">Vassar College</div>
+<div class="education-year">2004—2007</div>
+<div class="education-detail">History, Art History, Literature, Political Theory</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer/Contact -->
+<footer class="footer" id="contact">
+<div class="footer__content">
+<h2 class="footer__title">Let's Connect</h2>
+<p class="footer__subtitle">I'm currently exploring new opportunities, particularly in developer platforms and observability tooling. Always happy to talk technical UX, platform systems, or what it means to design for engineers.</p>
+<div class="footer__links">
+<a class="btn btn-primary" href="mailto:becca.h.gore@gmail.com">Email Me</a>
+<a class="btn btn-secondary" href="https://linkedin.com/in/rebecca-havens-gore" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+<a class="btn btn-secondary" href="https://github.com/becca-havens-gore" rel="noopener noreferrer" target="_blank">GitHub</a>
+</div>
+<div class="accessibility-badge">
+<button aria-describedby="badge-tooltip-text" aria-expanded="false" class="badge-content" type="button">
+<span aria-hidden="true" class="badge-icon">♿</span>
+<span class="badge-label">Designed Accessibly</span>
+</button>
+<div class="badge-tooltip" id="badge-tooltip-text" role="tooltip">This site uses semantic HTML, WCAG-compliant color contrast, keyboard-safe interactions, screen reader support, skip links, motion preferences, and high-contrast themes.</div>
+</div>
+<p class="footer__copyright">© 2026 Rebecca Havens Gore. All rights reserved. | Designed with accessibility and systems thinking.</p>
+</div>
+</footer>
+</main>
+<script>
+        // Theme system
+        (function(){
+            var h=document.documentElement,KEY='rg-theme';
+            var themeLabels={auto:'Auto',light:'Light',dark:'Dark','high-contrast':'Contrast'};
+            var themeAriaLabels={auto:'Theme: Auto',light:'Theme: Light',dark:'Theme: Dark','high-contrast':'Theme: Contrast'};
+            var themeDropdownButton=document.querySelector('.theme-dropdown-button');
+            var themeDropdownMenu=document.querySelector('.theme-dropdown-menu');
+            function sys(){return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+            function apply(p){
+                var a=p==='auto'?sys():p;
+                h.setAttribute('data-theme',a);h.setAttribute('data-theme-pref',p);
+                var themeColor=document.querySelector('meta[name="theme-color"]');
+                if(themeColor){
+                    themeColor.setAttribute('content',a==='dark' || a==='high-contrast' ? '#0F0F0F' : '#FAFAFA');
+                }
+                document.querySelectorAll('.theme-btn').forEach(function(b){
+                    var on=b.dataset.theme===p;
+                    b.classList.toggle('active',on);
+                    b.setAttribute('aria-pressed',on?'true':'false');
+                });
+                document.querySelectorAll('.theme-dropdown-item').forEach(function(item){
+                    var on=item.dataset.theme===p;
+                    item.classList.toggle('active',on);
+                    item.setAttribute('aria-pressed',on?'true':'false');
+                });
+                if(themeDropdownButton){
+                    themeDropdownButton.setAttribute('aria-label',themeAriaLabels[p]||'Theme');
+                    var label=themeDropdownButton.querySelector('.theme-dropdown-label');
+                    if(label){ label.textContent=themeLabels[p]||'Theme'; }
+                    var iconHost=themeDropdownButton.querySelector('.theme-dropdown-current-icon');
+                    var activeItem=document.querySelector('.theme-dropdown-item[data-theme="'+p+'"] svg');
+                    if(iconHost&&activeItem){ iconHost.innerHTML=activeItem.outerHTML; }
+                }
+            }
+            function closeThemeDropdown(){
+                if(themeDropdownButton&&themeDropdownMenu){
+                    themeDropdownButton.setAttribute('aria-expanded','false');
+                    themeDropdownMenu.classList.remove('active');
+                }
+            }
+            document.querySelectorAll('.theme-btn').forEach(function(b){
+                b.addEventListener('click',function(){
+                    apply(b.dataset.theme);
+                    try{localStorage.setItem(KEY,b.dataset.theme);}catch(e){}
+                });
+            });
+            document.querySelectorAll('.theme-dropdown-item').forEach(function(item){
+                item.addEventListener('click',function(){
+                    apply(item.dataset.theme);
+                    try{localStorage.setItem(KEY,item.dataset.theme);}catch(e){}
+                });
+            });
+            if(themeDropdownButton&&themeDropdownMenu){
+                themeDropdownButton.addEventListener('click',function(){
+                    var isOpen=themeDropdownMenu.classList.toggle('active');
+                    themeDropdownButton.setAttribute('aria-expanded',isOpen?'true':'false');
+                });
+                document.addEventListener('click',function(e){
+                    if(!e.target.closest('.theme-dropdown')){ closeThemeDropdown(); }
+                });
+                document.addEventListener('keydown',function(e){
+                    if(e.key==='Escape'){ closeThemeDropdown(); }
+                });
+            }
+            try{apply(localStorage.getItem(KEY)||'auto');}catch(e){apply('auto');}
+            try{window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',function(){
+                try{var c=localStorage.getItem(KEY)||'auto';if(c==='auto')apply('auto');}catch(e){}
+            });}catch(e){}
+        })();
+
+        // Mobile navigation
+        var hamburger=document.querySelector('.hamburger');
+        var navMenu=document.querySelector('.nav-menu');
+        var navOverlay=document.querySelector('.nav-overlay');
+        var lastFocusedElement=null;
+        function setNavState(isOpen, restoreFocus){
+            hamburger.classList.toggle('active',isOpen);
+            hamburger.setAttribute('aria-expanded',isOpen?'true':'false');
+            hamburger.setAttribute('aria-label',isOpen?'Close menu':'Open menu');
+            navMenu.hidden=!isOpen;
+            navMenu.setAttribute('aria-hidden',isOpen?'false':'true');
+            navOverlay.hidden=!isOpen;
+            navOverlay.setAttribute('aria-hidden',isOpen?'false':'true');
+            navMenu.classList.toggle('active',isOpen);
+            navOverlay.classList.toggle('active',isOpen);
+            document.body.style.overflow=isOpen?'hidden':'';
+            if(isOpen){
+                lastFocusedElement=document.activeElement;
+                var firstLink=navMenu.querySelector('.nav__link');
+                if(firstLink){ firstLink.focus(); }
+            }else if(restoreFocus!==false && lastFocusedElement && typeof lastFocusedElement.focus==='function'){
+                lastFocusedElement.focus();
+            }
+        }
+        function closeNav(options){
+            if(navMenu.classList.contains('active')){
+                setNavState(false, !(options && options.restoreFocus===false));
+            }
+        }
+        function toggleNav(){
+            setNavState(!navMenu.classList.contains('active'));
+        }
+        if(hamburger&&navMenu&&navOverlay){
+            hamburger.addEventListener('click',toggleNav);
+            navOverlay.addEventListener('click',closeNav);
+            document.addEventListener('keydown',function(e){
+                if(e.key==='Escape'){ closeNav(); }
+            });
+            window.addEventListener('resize',function(){
+                if(window.innerWidth>1093){ closeNav({restoreFocus:false}); }
+            });
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(function(a){
+            a.addEventListener('click',function(e){
+                var targetId=this.getAttribute('href');
+                if(!targetId || targetId==='#'){ return; }
+                var t=document.querySelector(targetId);
+                if(!t)return;
+                e.preventDefault();
+                var y=t.getBoundingClientRect().top+window.pageYOffset-80;
+                window.scrollTo({top:y,behavior:'smooth'});
+                if(targetId!=='#main-content'){
+                    t.setAttribute('tabindex','-1');
+                }
+                t.focus({preventScroll:true});
+                closeNav({restoreFocus:false});
+            });
+        });
+
+        // Accessibility badge state
+        var badgeButton=document.querySelector('.badge-content');
+        if(badgeButton){
+            ['focus','mouseenter'].forEach(function(eventName){
+                badgeButton.addEventListener(eventName,function(){
+                    badgeButton.setAttribute('aria-expanded','true');
+                });
+            });
+            ['blur','mouseleave'].forEach(function(eventName){
+                badgeButton.addEventListener(eventName,function(){
+                    badgeButton.setAttribute('aria-expanded','false');
+                });
+            });
+        }
+    </script>
+<script>
+    // Scroll-reveal
+    (function(){
+        var revealSelector='.section-header,.skill-category,.playing-card,.experience-item,.education-item';
+        if(!('IntersectionObserver' in window)){
+            document.querySelectorAll(revealSelector).forEach(function(el){el.classList.add('visible');});
+            return;
+        }
+        var io=new IntersectionObserver(function(entries){
+            entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+        },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+        document.querySelectorAll(revealSelector).forEach(function(el){io.observe(el);});
+    })();
+    </script>
+</body>
+</html>

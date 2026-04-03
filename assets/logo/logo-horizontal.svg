@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 44" fill="none" role="img" aria-label="Rebecca Gore — Design Systems Lead">
+
+  <!-- ── Logomark (44×44) ──────────────────────────────────────────── -->
+
+  <!-- Top-left bracket -->
+  <rect x="4"  y="4"  width="13" height="3" fill="currentColor"/>
+  <rect x="4"  y="4"  width="3"  height="13" fill="currentColor"/>
+
+  <!-- Top-right bracket -->
+  <rect x="27" y="4"  width="13" height="3" fill="currentColor"/>
+  <rect x="37" y="4"  width="3"  height="13" fill="currentColor"/>
+
+  <!-- Bottom-left bracket -->
+  <rect x="4"  y="37" width="13" height="3" fill="currentColor"/>
+  <rect x="4"  y="27" width="3"  height="13" fill="currentColor"/>
+
+  <!-- Bottom-right bracket -->
+  <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+  <rect x="37" y="27" width="3"  height="13" fill="currentColor"/>
+
+  <!-- Center accent diamond — the token -->
+  <rect x="18.5" y="18.5" width="7" height="7"
+        transform="rotate(45 22 22)"
+        fill="#FF6B2B"/>
+
+  <!-- ── Divider ─────────────────────────────────────────────────────── -->
+  <rect x="54" y="8" width="1" height="28" fill="currentColor" opacity="0.15"/>
+
+  <!-- ── Wordmark ───────────────────────────────────────────────────── -->
+
+  <!-- Name: Playfair Display Bold -->
+  <text
+    x="66" y="19"
+    font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+    font-size="21"
+    font-weight="700"
+    letter-spacing="-0.3"
+    fill="currentColor">Rebecca Gore</text>
+
+  <!-- Subtitle: IBM Plex Sans Semibold, tracked caps -->
+  <text
+    x="67" y="34"
+    font-family="'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif"
+    font-size="8.5"
+    font-weight="600"
+    letter-spacing="1.6"
+    fill="currentColor"
+    opacity="0.45">DESIGN SYSTEMS LEAD</text>
+
+</svg>

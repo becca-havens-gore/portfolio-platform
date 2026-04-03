@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none" role="img" aria-label="Rebecca Gore logomark">
+
+  <!-- Top-left bracket -->
+  <rect x="4"  y="4"  width="13" height="3" fill="currentColor"/>
+  <rect x="4"  y="4"  width="3"  height="13" fill="currentColor"/>
+
+  <!-- Top-right bracket -->
+  <rect x="27" y="4"  width="13" height="3" fill="currentColor"/>
+  <rect x="37" y="4"  width="3"  height="13" fill="currentColor"/>
+
+  <!-- Bottom-left bracket -->
+  <rect x="4"  y="37" width="13" height="3" fill="currentColor"/>
+  <rect x="4"  y="27" width="3"  height="13" fill="currentColor"/>
+
+  <!-- Bottom-right bracket -->
+  <rect x="27" y="37" width="13" height="3" fill="currentColor"/>
+  <rect x="37" y="27" width="3"  height="13" fill="currentColor"/>
+
+  <!-- Center accent diamond — the token -->
+  <rect x="18.5" y="18.5" width="7" height="7"
+        transform="rotate(45 22 22)"
+        fill="#FF6B2B"/>
+
+</svg>
