@@ -1,2 +1,2 @@
-# portfolio-data
-Portfolio for Rebecca Havens Gore, showcasing my telemetry-adjacent skills and experience.
+# portfolio-platform
+Portfolio for Rebecca Havens Gore, showcasing my platform design skills and experience.
